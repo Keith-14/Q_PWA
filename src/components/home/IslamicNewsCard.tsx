@@ -60,12 +60,11 @@ export const IslamicNewsCard = () => {
         ) : (
           <div className="space-y-3">
             {items.map((news) => (
-              <a
+              <button
                 key={news.id}
-                href={news.article_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex items-start gap-3 p-3 rounded-xl bg-gradient-to-r from-secondary/60 to-secondary/40 border border-border/50 hover:border-primary/30 hover:from-secondary/80 hover:to-secondary/60 transition-all duration-300 cursor-pointer hover:shadow-[0_0_15px_-5px_hsl(145_70%_45%/0.12)]"
+                type="button"
+                onClick={() => navigate(`/news/${news.id}`)}
+                className="group w-full text-left flex items-start gap-3 p-3 rounded-xl bg-gradient-to-r from-secondary/60 to-secondary/40 border border-border/50 hover:border-primary/30 hover:from-secondary/80 hover:to-secondary/60 transition-all duration-300 cursor-pointer hover:shadow-[0_0_15px_-5px_hsl(145_70%_45%/0.12)]"
               >
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-medium leading-snug line-clamp-2 text-foreground group-hover:text-emerald-gradient transition-all duration-300">
@@ -74,7 +73,7 @@ export const IslamicNewsCard = () => {
                   <p className="text-xs text-muted-foreground mt-1">{news.source_name}</p>
                 </div>
                 <ExternalLink className="h-4 w-4 text-muted-foreground shrink-0 mt-0.5 group-hover:text-primary group-hover:scale-110 transition-all duration-300" strokeWidth={1.5} />
-              </a>
+              </button>
             ))}
           </div>
         )}
