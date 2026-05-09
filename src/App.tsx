@@ -27,6 +27,7 @@ import { SellerDashboard } from "./pages/SellerDashboard";
 import { MakkahLive } from "./pages/MakkahLive";
 import { Forum } from "./pages/Forum";
 import { News } from "./pages/News";
+import { NewsDetail } from "./pages/NewsDetail";
 import { Mood } from "./pages/Mood";
 import { HalalScanner } from "./pages/HalalScanner";
 import NotFound from "./pages/NotFound";
@@ -78,6 +79,7 @@ const App = () => (
                   <Route path="/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />
                   <Route path="/makkah-live" element={<ProtectedRoute><MakkahLive /></ProtectedRoute>} />
                   <Route path="/news" element={<ProtectedRoute><News /></ProtectedRoute>} />
+                  <Route path="/news/:id" element={<ProtectedRoute><NewsDetail /></ProtectedRoute>} />
                   <Route path="/mood" element={<ProtectedRoute><Mood /></ProtectedRoute>} />
                   <Route path="/halal-scanner" element={<ProtectedRoute><HalalScanner /></ProtectedRoute>} />
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
