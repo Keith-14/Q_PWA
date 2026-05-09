@@ -206,6 +206,84 @@ export type Database = {
         }
         Relationships: []
       }
+      news_articles: {
+        Row: {
+          article_url: string
+          author: string | null
+          category: string | null
+          content: string | null
+          created_at: string
+          description: string | null
+          guid: string
+          id: string
+          image_url: string | null
+          published_at: string | null
+          source_name: string
+          tags: string[] | null
+          title: string
+        }
+        Insert: {
+          article_url: string
+          author?: string | null
+          category?: string | null
+          content?: string | null
+          created_at?: string
+          description?: string | null
+          guid: string
+          id?: string
+          image_url?: string | null
+          published_at?: string | null
+          source_name: string
+          tags?: string[] | null
+          title: string
+        }
+        Update: {
+          article_url?: string
+          author?: string | null
+          category?: string | null
+          content?: string | null
+          created_at?: string
+          description?: string | null
+          guid?: string
+          id?: string
+          image_url?: string | null
+          published_at?: string | null
+          source_name?: string
+          tags?: string[] | null
+          title?: string
+        }
+        Relationships: []
+      }
+      news_sources: {
+        Row: {
+          category: string | null
+          created_at: string
+          id: string
+          is_active: boolean
+          name: string
+          rss_url: string
+          updated_at: string
+        }
+        Insert: {
+          category?: string | null
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          name: string
+          rss_url: string
+          updated_at?: string
+        }
+        Update: {
+          category?: string | null
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          name?: string
+          rss_url?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       order_items: {
         Row: {
           created_at: string
