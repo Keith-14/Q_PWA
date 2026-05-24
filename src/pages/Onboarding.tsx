@@ -1,176 +1,138 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { BookOpen, Clock, Users } from 'lucide-react';
+import onboarding1 from '@/assets/onboarding-1.jpg';
+import onboarding2 from '@/assets/onboarding-2.jpg';
+import onboarding3 from '@/assets/onboarding-3.jpg';
 
 const ONBOARDING_KEY = 'barakah_onboarding_completed';
-const ONBOARDING_SLIDE_KEY = 'barakah_onboarding_slide';
-const ONBOARDING_DESTINATION_KEY = 'barakah_onboarding_destination';
 
-const slides = [
+type Slide = {
+  image: string;
+  bg: string;
+  title: React.ReactNode;
+  description: string;
+};
+
+const slides: Slide[] = [
   {
-    icon: BookOpen,
-    title: 'Quran & Spiritual Growth',
-    description: 'Access the complete Quran with audio recitations, translations, and daily verses to strengthen your connection with Allah.',
-    color: 'bg-primary'
+    image: onboarding1,
+    bg: '#b9573a',
+    title: (
+      <>
+        One <span style={{ color: '#7a2e1a' }}>Ummah</span>
+        <br />One App
+      </>
+    ),
+    description:
+      'All your essentials in one place—faith, daily life, and what matters most, organized with intention.',
   },
   {
-    icon: Clock,
-    title: 'Prayer Times & Tracking',
-    description: 'Never miss a prayer with accurate times based on your location. Track your daily prayers and build a consistent streak.',
-    color: 'bg-primary'
+    image: onboarding2,
+    bg: '#b9573a',
+    title: (
+      <>
+        <span style={{ color: '#7a2e1a' }}>AI-driven</span> Islamic
+        <br />companion
+      </>
+    ),
+    description:
+      'Ask anything — prayer guidance, fiqh questions, daily duas. Instant trusted answers powered by AI.',
   },
   {
-    icon: Users,
-    title: 'Community & Marketplace',
-    description: 'Connect with fellow Muslims in the Forum, explore Hajj packages, and shop from trusted sellers in our marketplace.',
-    color: 'bg-primary'
-  }
+    image: onboarding3,
+    bg: '#d9a23a',
+    title: (
+      <>
+        <span style={{ color: '#7a2e1a' }}>Trusted</span> Hajj &
+        <br />Umrah packages
+      </>
+    ),
+    description:
+      'Explore trusted Hajj and Umrah packages, plan your pilgrimage and connect with fellow traveller.',
+  },
 ];
 
 export const Onboarding = () => {
   const navigate = useNavigate();
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
-  const [slideDirection, setSlideDirection] = useState<'left' | 'right'>('left');
+  const [current, setCurrent] = useState(0);
+  const isLast = current === slides.length - 1;
 
-  // Check if onboarding was already completed
-  useEffect(() => {
-    const completed = localStorage.getItem(ONBOARDING_KEY);
-    if (completed === 'true') {
-      const destination = localStorage.getItem(ONBOARDING_DESTINATION_KEY) || '/';
-      localStorage.removeItem(ONBOARDING_DESTINATION_KEY);
-      navigate(destination, { replace: true });
-      return;
-    }
-
-    // Resume from saved slide if app was closed mid-onboarding
-    const savedSlide = localStorage.getItem(ONBOARDING_SLIDE_KEY);
-    if (savedSlide) {
-      const slideIndex = parseInt(savedSlide, 10);
-      if (slideIndex >= 0 && slideIndex < slides.length) {
-        setCurrentSlide(slideIndex);
-      }
-    }
-  }, [navigate]);
-
-  // Save current slide to localStorage
-  useEffect(() => {
-    localStorage.setItem(ONBOARDING_SLIDE_KEY, currentSlide.toString());
-  }, [currentSlide]);
+  const finish = () => {
+    localStorage.setItem(ONBOARDING_KEY, 'true');
+    navigate('/login', { replace: true });
+  };
 
   const handleNext = () => {
-    if (isAnimating) return;
-
-    if (currentSlide < slides.length - 1) {
-      setSlideDirection('left');
-      setIsAnimating(true);
-      setTimeout(() => {
-        setCurrentSlide(prev => prev + 1);
-        setIsAnimating(false);
-      }, 300);
-    } else {
-      // Complete onboarding
-      localStorage.setItem(ONBOARDING_KEY, 'true');
-      localStorage.removeItem(ONBOARDING_SLIDE_KEY);
-      const destination = localStorage.getItem(ONBOARDING_DESTINATION_KEY) || '/';
-      localStorage.removeItem(ONBOARDING_DESTINATION_KEY);
-      navigate(destination, { replace: true });
-    }
+    if (isLast) finish();
+    else setCurrent((c) => c + 1);
   };
 
-  const handleDotClick = (index: number) => {
-    if (isAnimating || index === currentSlide) return;
-    
-    setSlideDirection(index > currentSlide ? 'left' : 'right');
-    setIsAnimating(true);
-    setTimeout(() => {
-      setCurrentSlide(index);
-      setIsAnimating(false);
-    }, 300);
-  };
-
-  const CurrentIcon = slides[currentSlide].icon;
+  const slide = slides[current];
 
   return (
-    <div className="min-h-screen bg-cream flex flex-col items-center justify-center max-w-md mx-auto relative overflow-hidden px-6">
-      {/* Islamic pattern background */}
-      <div className="absolute inset-0 opacity-20">
-        <div 
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23B8A082' fill-opacity='0.4'%3E%3Cpath d='M30 30c0-16.569-13.431-30-30-30v30h30zM0 30v30h30c0-16.569-13.431-30-30-30z'/%3E%3C/g%3E%3C/svg%3E")`,
-            backgroundSize: '60px 60px'
-          }}
+    <div
+      className="min-h-screen max-w-md mx-auto relative flex flex-col overflow-hidden transition-colors duration-500"
+      style={{ backgroundColor: slide.bg }}
+    >
+      {/* Skip */}
+      <div className="flex justify-end px-6 pt-6 relative z-10">
+        <button
+          onClick={finish}
+          className="text-white/95 text-base font-medium"
+        >
+          Skip
+        </button>
+      </div>
+
+      {/* Illustration */}
+      <div className="flex-1 flex items-center justify-center px-6 pb-4">
+        <img
+          src={slide.image}
+          alt=""
+          className="w-full max-h-[55vh] object-contain"
         />
       </div>
 
-      <div className="relative z-10 w-full flex flex-col items-center">
-        {/* Slide Content */}
-        <div 
-          className={`w-full text-center transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] ${
-            isAnimating 
-              ? slideDirection === 'left' 
-                ? 'opacity-0 -translate-x-8' 
-                : 'opacity-0 translate-x-8'
-              : 'opacity-100 translate-x-0'
-          }`}
+      {/* Bottom cream sheet */}
+      <div
+        className="rounded-t-[32px] px-8 pt-10 pb-8 shadow-[0_-10px_30px_rgba(0,0,0,0.08)]"
+        style={{ backgroundColor: '#fbf1dd' }}
+      >
+        <h1
+          className="text-center text-[28px] leading-tight font-bold mb-4"
+          style={{ color: '#1a1a1a', fontFamily: 'Reem Kufi, sans-serif' }}
         >
-          {/* Icon */}
-          <div className={`${slides[currentSlide].color} w-24 h-24 rounded-full mx-auto mb-8 flex items-center justify-center shadow-lg transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]`}>
-            <CurrentIcon className="h-12 w-12 text-primary-foreground" />
-          </div>
+          {slide.title}
+        </h1>
+        <p
+          className="text-center text-sm leading-relaxed mb-6"
+          style={{ color: '#6b6b6b' }}
+        >
+          {slide.description}
+        </p>
 
-          {/* Title */}
-          <h1 className="text-2xl font-bold text-foreground mb-4">
-            {slides[currentSlide].title}
-          </h1>
-
-          {/* Description */}
-          <p className="text-muted-foreground leading-relaxed px-4 mb-12">
-            {slides[currentSlide].description}
-          </p>
-        </div>
-
-        {/* Indicator Dots */}
-        <div className="flex items-center justify-center gap-3 mb-8">
-          {slides.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => handleDotClick(index)}
-              className={`rounded-full transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] ${
-                index === currentSlide
-                  ? 'w-8 h-2 bg-primary scale-100'
-                  : 'w-2 h-2 bg-primary/30 hover:bg-primary/50 hover:scale-110'
-              }`}
-              aria-label={`Go to slide ${index + 1}`}
+        {/* Dots */}
+        <div className="flex items-center justify-center gap-2 mb-6">
+          {slides.map((_, i) => (
+            <span
+              key={i}
+              className="h-1.5 rounded-full transition-all duration-300"
+              style={{
+                width: i === current ? 24 : 16,
+                backgroundColor: i === current ? '#5a6a3a' : '#d9c9a8',
+              }}
             />
           ))}
         </div>
 
-        {/* Navigation Button */}
         <Button
           onClick={handleNext}
-          className="w-full bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl h-14 font-semibold text-lg shadow-lg transition-all duration-200 ease-[cubic-bezier(0.4,0,0.2,1)] hover:shadow-xl hover:-translate-y-0.5"
+          className="w-full h-14 rounded-full text-white text-base font-semibold"
+          style={{ backgroundColor: '#b9573a' }}
         >
-          {currentSlide === slides.length - 1 ? 'Get Started' : 'Next'}
+          {isLast ? 'Get Started' : 'Next'}
         </Button>
-
-        {/* Skip option for non-last slides */}
-        {currentSlide < slides.length - 1 && (
-          <button
-            onClick={() => {
-              localStorage.setItem(ONBOARDING_KEY, 'true');
-              localStorage.removeItem(ONBOARDING_SLIDE_KEY);
-              const destination = localStorage.getItem(ONBOARDING_DESTINATION_KEY) || '/';
-              localStorage.removeItem(ONBOARDING_DESTINATION_KEY);
-              navigate(destination, { replace: true });
-            }}
-            className="mt-4 text-muted-foreground text-sm hover:text-foreground transition-all duration-200 ease-[cubic-bezier(0.4,0,0.2,1)]"
-          >
-            Skip
-          </button>
-        )}
       </div>
     </div>
   );

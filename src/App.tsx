@@ -61,7 +61,7 @@ const App = () => (
                 <Routes>
                   <Route path="/loading" element={<LoadingScreen />} />
                   <Route path="/login" element={<Register />} />
-                  <Route path="/onboarding" element={<ProtectedRoute><Onboarding /></ProtectedRoute>} />
+                  <Route path="/onboarding" element={<Onboarding />} />
                   <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
                   <Route path="/quran" element={<ProtectedRoute><Quran /></ProtectedRoute>} />
                   <Route path="/qibla" element={<ProtectedRoute><Qibla /></ProtectedRoute>} />
