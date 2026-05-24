@@ -6,7 +6,8 @@ export const LoadingScreen = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigate('/login');
+      const seen = localStorage.getItem('barakah_onboarding_completed') === 'true';
+      navigate(seen ? '/login' : '/onboarding');
     }, 4000);
     return () => clearTimeout(timer);
   }, [navigate]);
