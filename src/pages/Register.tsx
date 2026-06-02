@@ -1,20 +1,20 @@
 import { useState } from 'react';
-import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
-import { User, Briefcase, Plane, Chrome } from 'lucide-react';
+import { User, Briefcase, Plane, Star, ArrowLeft } from 'lucide-react';
+import { Card } from '@/components/ui/card';
 import { LanguageSelector } from '@/components/LanguageSelector';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { BarakahLogo } from '@/components/BarakahLogo';
 import { Separator } from '@/components/ui/separator';
+import loginHero from '@/assets/login-hero.jpg';
 
 type UserRole = 'normal_user' | 'seller' | 'travel_partner';
 
 export const Register = () => {
-  const [step, setStep] = useState<'profile' | 'details'>('profile');
+  const [view, setView] = useState<'welcome' | 'profile' | 'details'>('welcome');
   const [selectedRole, setSelectedRole] = useState<UserRole | null>(null);
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
