@@ -82,7 +82,10 @@ export const Onboarding = () => {
           </button>
         </div>
         <div className="flex-1" />
-        <div className="relative z-10 px-8 pb-8">
+        <div
+          className="relative z-10 px-8 pt-6 pb-8"
+          style={{ background: 'linear-gradient(180deg, rgba(251,241,221,0) 0%, #fbf1dd 30%, #fbf1dd 100%)' }}
+        >
           <Button
             onClick={handleNext}
             className="w-full h-14 rounded-full text-white text-base font-semibold hover:opacity-90"
