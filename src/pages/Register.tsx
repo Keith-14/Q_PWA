@@ -167,13 +167,7 @@ export const Register = () => {
   return (
     <div
       className="min-h-screen max-w-md mx-auto relative overflow-hidden flex flex-col"
-      style={{
-        backgroundImage: `linear-gradient(180deg, rgba(255,241,221,0) 55%, #FFF1DD 100%), url(${loginBg.url})`,
-        backgroundSize: 'cover, cover',
-        backgroundPosition: 'center top, center top',
-        backgroundRepeat: 'no-repeat, no-repeat',
-        backgroundColor: '#FFF1DD',
-      }}
+      style={{ backgroundColor: '#FFF1DD' }}
     >
       {/* Language selector */}
       <div className="absolute top-3 right-3 z-30">
@@ -181,7 +175,15 @@ export const Register = () => {
       </div>
 
       {/* Hero spacer with brand */}
-      <div className="relative h-[42vh] min-h-[300px] w-full">
+      <div
+        className="relative h-[42vh] min-h-[300px] w-full"
+        style={{
+          backgroundImage: `linear-gradient(180deg, rgba(255,241,221,0) 70%, #FFF1DD 100%), url(${loginBg.url})`,
+          backgroundSize: 'cover, cover',
+          backgroundPosition: 'center top, center top',
+          backgroundRepeat: 'no-repeat, no-repeat',
+        }}
+      >
         <div className="absolute inset-x-0 top-[22%] flex flex-col items-center">
           <div className="flex items-center gap-2">
             <span className="inline-block w-2.5 h-2.5 rotate-45" style={{ background: '#8A8C24' }} />
