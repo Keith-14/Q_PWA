@@ -14,6 +14,7 @@ import { Onboarding } from "./pages/Onboarding";
 import { Quran } from "./pages/Quran";
 import { Qibla } from "./pages/Qibla";
 import { Shop } from "./pages/Shop";
+import { ShopCategories } from "./pages/ShopCategories";
 import { Places } from "./pages/Places";
 import { Account } from "./pages/Account";
 import { PrayerTimes } from "./pages/PrayerTimes";
@@ -66,6 +67,7 @@ const App = () => (
                   <Route path="/quran" element={<ProtectedRoute><Quran /></ProtectedRoute>} />
                   <Route path="/qibla" element={<ProtectedRoute><Qibla /></ProtectedRoute>} />
                   <Route path="/shop" element={<ProtectedRoute><Shop /></ProtectedRoute>} />
+                  <Route path="/shop/categories" element={<ProtectedRoute><ShopCategories /></ProtectedRoute>} />
                   <Route path="/forum" element={<ProtectedRoute><Forum /></ProtectedRoute>} />
                   <Route path="/places" element={<ProtectedRoute><Places /></ProtectedRoute>} />
                   <Route path="/account" element={<ProtectedRoute><Account /></ProtectedRoute>} />
