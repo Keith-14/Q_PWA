@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useToast } from '@/hooks/use-toast';
 import { useEffect, useState, useMemo } from 'react';
 import { supabase } from '@/integrations/supabase/client';
+import { CATEGORIES } from './ShopCategories';
 
 interface Product {
   id: string;
@@ -23,15 +24,6 @@ const CREAM_SOFT = '#FFF1DD';
 const BROWN = '#A35233';
 const BROWN_DARK = '#5C2A14';
 const GREEN = '#3F6B3A';
-
-const CATEGORIES = [
-  { key: 'rugs', label: 'Rugs', emoji: '🧶' },
-  { key: 'fashion', label: 'Fashion', emoji: '👗' },
-  { key: 'abaya', label: 'Abaya', emoji: '🧥' },
-  { key: 'mens', label: 'Mens Wear', emoji: '👔' },
-  { key: 'accessories', label: 'Accessories', emoji: '📿' },
-  { key: 'home', label: 'Home', emoji: '🕯️' },
-];
 
 export const Shop = () => {
   const { addToCart, getTotalItems } = useCart();
@@ -130,18 +122,15 @@ export const Shop = () => {
           <section className="space-y-3">
             <div className="flex items-center justify-between">
               <h2 className="text-xl font-bold" style={{ color: BROWN_DARK }}>Categories</h2>
-              <button type="button" className="text-sm" style={{ color: BROWN_DARK, opacity: 0.7 }}>See all</button>
+              <button type="button" onClick={() => navigate('/shop/categories')} className="text-sm" style={{ color: BROWN_DARK, opacity: 0.7 }}>See all</button>
             </div>
             <div className="flex gap-4 overflow-x-auto scrollbar-hide -mx-4 px-4 pb-1">
               {CATEGORIES.map((c) => (
-                <button key={c.key} type="button" className="flex flex-col items-center gap-2 shrink-0">
-                  <div
-                    className="h-16 w-16 rounded-full flex items-center justify-center text-2xl"
-                    style={{ backgroundColor: '#E8D3B0' }}
-                  >
-                    {c.emoji}
+                <button key={c.key} type="button" onClick={() => navigate('/shop/categories')} className="flex flex-col items-center gap-2 shrink-0 w-16">
+                  <div className="h-16 w-16 rounded-full overflow-hidden bg-neutral-100">
+                    <img src={c.image} alt={c.label} loading="lazy" width={64} height={64} className="h-full w-full object-cover" />
                   </div>
-                  <span className="text-xs font-medium" style={{ color: BROWN_DARK }}>{c.label}</span>
+                  <span className="text-xs font-medium text-center leading-tight" style={{ color: BROWN_DARK }}>{c.label}</span>
                 </button>
               ))}
             </div>
