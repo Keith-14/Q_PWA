@@ -1,12 +1,10 @@
 import { Layout } from '@/components/Layout';
-import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { ShoppingCart, Search, Filter, Loader2 } from 'lucide-react';
+import { ShoppingCart, Search, Loader2, Menu, Heart, Plus, Leaf, Bell } from 'lucide-react';
 import { useCart } from '@/contexts/CartContext';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '@/hooks/use-toast';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 
 interface Product {
@@ -20,13 +18,28 @@ interface Product {
   seller_id: string;
 }
 
+const CREAM = '#FBEBD0';
+const CREAM_SOFT = '#FFF1DD';
+const BROWN = '#A35233';
+const BROWN_DARK = '#5C2A14';
+const GREEN = '#3F6B3A';
+
+const CATEGORIES = [
+  { key: 'rugs', label: 'Rugs', emoji: '🧶' },
+  { key: 'fashion', label: 'Fashion', emoji: '👗' },
+  { key: 'abaya', label: 'Abaya', emoji: '🧥' },
+  { key: 'mens', label: 'Mens Wear', emoji: '👔' },
+  { key: 'accessories', label: 'Accessories', emoji: '📿' },
+  { key: 'home', label: 'Home', emoji: '🕯️' },
+];
+
 export const Shop = () => {
   const { addToCart, getTotalItems } = useCart();
   const navigate = useNavigate();
   const { toast } = useToast();
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [favorites, setFavorites] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     fetchProducts();
@@ -73,88 +86,182 @@ export const Shop = () => {
     navigate('/cart');
   };
 
-  const filteredProducts = products.filter(product =>
-    product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    product.category?.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const toggleFav = (id: string) => {
+    setFavorites((prev) => {
+      const next = new Set(prev);
+      next.has(id) ? next.delete(id) : next.add(id);
+      return next;
+    });
+  };
+
+  const topPicks = useMemo(() => products.slice(0, 3), [products]);
 
   return (
-    <Layout>
-      <div className="px-4 py-6 space-y-6">
-        {/* Header */}
-        <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-primary">Shop</h1>
-          <Button variant="ghost" className="relative text-primary" onClick={handleCartClick}>
-            <ShoppingCart className="h-5 w-5" />
-            {getTotalItems() > 0 && (
-              <span className="absolute -top-1 -right-1 bg-primary text-primary-foreground text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                {getTotalItems()}
-              </span>
-            )}
-          </Button>
-        </div>
-
-        {/* Search and Filter */}
-        <div className="flex items-center space-x-3">
-          <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
-            <Input 
-              placeholder="Search products..." 
-              className="pl-10 bg-card border-border rounded-full"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
+    <Layout showHeader={false}>
+      <div className="min-h-screen" style={{ backgroundColor: CREAM }}>
+        {/* Top bar */}
+        <div className="bg-white px-4 pt-4 pb-4 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <button type="button" aria-label="Menu" style={{ color: BROWN_DARK }}>
+              <Menu className="h-6 w-6" />
+            </button>
+            <h1 className="text-2xl font-bold" style={{ color: BROWN_DARK }}>Marketplace</h1>
           </div>
-          <Button variant="outline" className="rounded-full border-border">
-            <Filter className="h-4 w-4 mr-2" />
-            Filters
-          </Button>
-        </div>
-
-        {/* Loading State */}
-        {loading ? (
-          <div className="flex items-center justify-center py-12">
-            <Loader2 className="h-8 w-8 animate-spin text-primary" />
-          </div>
-        ) : filteredProducts.length === 0 ? (
-          <div className="text-center py-12">
-            <p className="text-muted-foreground">No products available yet.</p>
-          </div>
-        ) : (
-          /* Products Grid */
-          <div className="grid grid-cols-2 gap-4">
-            {filteredProducts.map((product) => (
-              <Card key={product.id} className="p-4 rounded-2xl bg-card">
-                <div className="aspect-square bg-secondary rounded-xl mb-3 flex items-center justify-center overflow-hidden">
-                  {product.image_url ? (
-                    <img 
-                      src={product.image_url} 
-                      alt={product.name}
-                      className="w-full h-full object-cover"
-                    />
-                  ) : (
-                    <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center">
-                      <div className="w-8 h-8 bg-primary rounded-full"></div>
-                    </div>
-                  )}
-                </div>
-                <h3 className="font-semibold text-primary text-center mb-1 truncate">
-                  {product.name}
-                </h3>
-                <p className="text-lg font-bold text-foreground text-center mb-3">
-                  ${product.price.toFixed(2)}
-                </p>
-                <Button 
-                  variant="outline" 
-                  className="w-full rounded-full border-primary text-primary hover:bg-primary hover:text-primary-foreground"
-                  onClick={() => handleAddToCart(product)}
+          <div className="flex items-center gap-4">
+            <button type="button" aria-label="Search" style={{ color: BROWN_DARK }}>
+              <Search className="h-5 w-5" />
+            </button>
+            <button type="button" onClick={handleCartClick} className="relative" style={{ color: BROWN_DARK }}>
+              <ShoppingCart className="h-6 w-6" />
+              {getTotalItems() > 0 && (
+                <span
+                  className="absolute -top-1.5 -right-2 text-[10px] font-bold rounded-full h-4 min-w-4 px-1 flex items-center justify-center text-white"
+                  style={{ backgroundColor: BROWN }}
                 >
-                  ADD TO CART
-                </Button>
-              </Card>
-            ))}
+                  {getTotalItems()}
+                </span>
+              )}
+            </button>
           </div>
-        )}
+        </div>
+
+        <div className="px-4 pt-5 pb-32 space-y-6">
+          {/* Categories */}
+          <section className="space-y-3">
+            <div className="flex items-center justify-between">
+              <h2 className="text-xl font-bold" style={{ color: BROWN_DARK }}>Categories</h2>
+              <button type="button" className="text-sm" style={{ color: BROWN_DARK, opacity: 0.7 }}>See all</button>
+            </div>
+            <div className="flex gap-4 overflow-x-auto scrollbar-hide -mx-4 px-4 pb-1">
+              {CATEGORIES.map((c) => (
+                <button key={c.key} type="button" className="flex flex-col items-center gap-2 shrink-0">
+                  <div
+                    className="h-16 w-16 rounded-full flex items-center justify-center text-2xl"
+                    style={{ backgroundColor: '#E8D3B0' }}
+                  >
+                    {c.emoji}
+                  </div>
+                  <span className="text-xs font-medium" style={{ color: BROWN_DARK }}>{c.label}</span>
+                </button>
+              ))}
+            </div>
+          </section>
+
+          {/* Hero banner */}
+          <section>
+            <div
+              className="relative rounded-3xl overflow-hidden p-6 h-44 flex flex-col justify-center"
+              style={{
+                background: `linear-gradient(135deg, ${BROWN} 0%, ${BROWN_DARK} 100%)`,
+              }}
+            >
+              <div className="relative z-10 max-w-[60%]">
+                <h3 className="text-2xl font-bold text-white leading-tight">Artisanal Selection</h3>
+                <p className="text-xs text-white/85 mt-2 leading-snug">
+                  Curated handcrafted pieces from master artisans across the heritage belt.
+                </p>
+              </div>
+              <div
+                className="absolute right-0 top-0 bottom-0 w-1/2 opacity-30"
+                style={{
+                  background:
+                    'radial-gradient(circle at 70% 50%, rgba(255,220,180,0.6), transparent 60%)',
+                }}
+              />
+            </div>
+            <div className="flex items-center justify-center gap-1.5 mt-3">
+              <span className="h-1.5 w-6 rounded-full" style={{ backgroundColor: GREEN }} />
+              <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: '#D9C4A4' }} />
+              <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: '#D9C4A4' }} />
+            </div>
+          </section>
+
+          {/* Top Picks */}
+          <section className="space-y-3">
+            <div className="flex items-center justify-between">
+              <h2 className="text-xl font-bold" style={{ color: BROWN }}>Top Picks</h2>
+              <button type="button" className="text-sm" style={{ color: BROWN_DARK, opacity: 0.7 }}>See all</button>
+            </div>
+
+            {loading ? (
+              <div className="flex items-center justify-center py-12">
+                <Loader2 className="h-8 w-8 animate-spin" style={{ color: BROWN }} />
+              </div>
+            ) : (
+              <div className="grid grid-cols-2 gap-4">
+                {topPicks.map((product, idx) => {
+                  const isNew = idx === 0;
+                  const isSustainable = idx === 1;
+                  const badge = isNew ? { label: 'NEW ARRIVAL', color: BROWN } : isSustainable ? { label: 'SUSTAINABLE', color: GREEN } : { label: 'ARTISANAL SELECTION', color: BROWN };
+                  const fav = favorites.has(product.id);
+                  return (
+                    <div
+                      key={product.id}
+                      className="rounded-2xl overflow-hidden bg-white flex flex-col"
+                      style={{ boxShadow: '0 2px 6px rgba(92,42,20,0.06)' }}
+                    >
+                      <div className="relative aspect-square bg-neutral-100">
+                        {product.image_url ? (
+                          <img src={product.image_url} alt={product.name} className="w-full h-full object-cover" />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center" style={{ color: BROWN, opacity: 0.4 }}>
+                            <Leaf className="h-10 w-10" />
+                          </div>
+                        )}
+                        <button
+                          type="button"
+                          onClick={() => toggleFav(product.id)}
+                          className="absolute top-2 right-2 h-8 w-8 rounded-full bg-black/30 backdrop-blur flex items-center justify-center"
+                          aria-label="Favorite"
+                        >
+                          <Heart className="h-4 w-4 text-white" fill={fav ? 'white' : 'none'} />
+                        </button>
+                      </div>
+                      <div className="p-3 space-y-1">
+                        <p className="text-[10px] font-bold tracking-wide" style={{ color: badge.color }}>{badge.label}</p>
+                        <h3 className="text-sm font-bold leading-tight line-clamp-2" style={{ color: BROWN_DARK }}>
+                          {product.name}
+                        </h3>
+                        <div className="flex items-center justify-between pt-1">
+                          <p className="text-base font-bold" style={{ color: BROWN_DARK }}>${product.price.toFixed(2)}</p>
+                          <button
+                            type="button"
+                            onClick={() => handleAddToCart(product)}
+                            className="h-7 w-7 rounded-full border flex items-center justify-center"
+                            style={{ borderColor: BROWN, color: BROWN }}
+                            aria-label="Add to cart"
+                          >
+                            <Plus className="h-4 w-4" />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+
+                {/* Coming soon card */}
+                <div className="rounded-2xl overflow-hidden flex flex-col" style={{ backgroundColor: CREAM_SOFT, boxShadow: '0 2px 6px rgba(92,42,20,0.06)' }}>
+                  <div className="aspect-square flex flex-col items-center justify-center text-center px-4" style={{ color: BROWN }}>
+                    <Leaf className="h-7 w-7 mb-2" />
+                    <p className="text-sm font-semibold leading-tight" style={{ color: BROWN_DARK }}>
+                      More coming<br />from the Atlas<br />Mountains
+                    </p>
+                  </div>
+                  <div className="p-3 space-y-1 bg-white">
+                    <p className="text-[10px] font-bold tracking-wide" style={{ color: BROWN_DARK, opacity: 0.7 }}>COMING SOON</p>
+                    <h3 className="text-sm font-bold leading-tight" style={{ color: BROWN_DARK }}>Atlas Wool Collection</h3>
+                    <div className="flex items-center justify-between pt-1">
+                      <p className="text-base font-bold" style={{ color: BROWN_DARK }}>---</p>
+                      <button type="button" className="h-7 w-7 rounded-full flex items-center justify-center" style={{ color: BROWN_DARK, opacity: 0.5 }} aria-label="Notify">
+                        <Bell className="h-4 w-4" />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </section>
+        </div>
       </div>
     </Layout>
   );
