@@ -6,6 +6,7 @@ import { useGlobalLocation } from '@/contexts/LocationContext';
 import { supabase } from '@/integrations/supabase/client';
 import { ChatAssistant } from '@/components/ChatAssistant';
 import { SideMenu } from '@/components/SideMenu';
+import prayerIcon from '@/assets/prayer-icon.png.asset.json';
 import qaQuran from '@/assets/qa-quran.png';
 import qaAi from '@/assets/qa-ai.png';
 import qaPlaces from '@/assets/qa-places.png';
