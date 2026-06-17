@@ -75,7 +75,7 @@ export const AddShippingAddress = () => {
       toast.error(parsed.error.issues[0]?.message ?? 'Invalid address');
       return;
     }
-    const addr: ShippingAddress = { id: id ?? crypto.randomUUID(), ...parsed.data };
+    const addr: ShippingAddress = { id: id ?? crypto.randomUUID(), ...form };
     upsertAddress(addr);
     if (!getSelectedAddressId()) setSelectedAddressId(addr.id);
     toast.success(isEdit ? 'Address updated' : 'Address saved');
