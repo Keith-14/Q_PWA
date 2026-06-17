@@ -912,14 +912,14 @@ export const Forum = () => {
           {searchOpen && (
             <div className="mb-4 animate-fade-in">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/50" />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4" style={{ color: BROWN_LIGHT }} />
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search posts..."
-                  className="w-full pl-9 pr-4 py-2.5 rounded-xl text-sm text-foreground placeholder:text-muted-foreground/40 outline-none"
-                  style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)' }}
+                  className="w-full pl-9 pr-4 py-2.5 rounded-xl text-sm outline-none"
+                  style={{ background: '#FFFFFF', border: `1px solid ${SOFT_BORDER}`, color: BROWN_DARK }}
                   autoFocus
                 />
               </div>
@@ -933,15 +933,15 @@ export const Forum = () => {
               className="relative pb-2.5 px-1 mr-6"
             >
               <span 
-                className="text-sm font-medium transition-colors"
-                style={{ color: activeTab === 'announcements' ? BROWN_LIGHT : 'rgba(255,255,255,0.4)' }}
+                className="text-base font-bold transition-colors"
+                style={{ color: activeTab === 'announcements' ? BROWN : '#9C8569' }}
               >
                 Announcements
               </span>
               {activeTab === 'announcements' && (
                 <div 
-                  className="absolute bottom-0 left-0 right-0 h-0.5 rounded-full"
-                  style={{ background: BROWN_LIGHT }}
+                  className="absolute bottom-0 left-0 right-0 h-[2px] rounded-full"
+                  style={{ background: BROWN }}
                 />
               )}
             </button>
@@ -950,15 +950,15 @@ export const Forum = () => {
               className="relative pb-2.5 px-1"
             >
               <span 
-                className="text-sm font-medium transition-colors"
-                style={{ color: activeTab === 'communities' ? BROWN_LIGHT : 'rgba(255,255,255,0.4)' }}
+                className="text-base font-medium transition-colors"
+                style={{ color: activeTab === 'communities' ? BROWN : '#9C8569' }}
               >
                 My Communities
               </span>
               {activeTab === 'communities' && (
                 <div 
-                  className="absolute bottom-0 left-0 right-0 h-0.5 rounded-full"
-                  style={{ background: BROWN_LIGHT }}
+                  className="absolute bottom-0 left-0 right-0 h-[2px] rounded-full"
+                  style={{ background: BROWN }}
                 />
               )}
             </button>
@@ -966,9 +966,9 @@ export const Forum = () => {
 
           {activeTab === 'communities' ? (
             <div className="text-center py-20">
-              <Users className="h-10 w-10 mx-auto mb-4" style={{ color: 'rgba(255,235,201,0.2)' }} />
-              <p className="text-muted-foreground/60 font-medium">My Communities</p>
-              <p className="text-sm text-muted-foreground/40 mt-1">Coming soon</p>
+              <Users className="h-10 w-10 mx-auto mb-4" style={{ color: '#C4A98A' }} />
+              <p className="font-medium" style={{ color: BROWN_DARK }}>My Communities</p>
+              <p className="text-sm mt-1" style={{ color: '#9C8569' }}>Coming soon</p>
             </div>
           ) : (
             <>
@@ -979,12 +979,14 @@ export const Forum = () => {
                     key={id}
                     onClick={() => setSelectedCategory(id)}
                     className={cn(
-                      "px-4 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-all duration-200 border",
+                      "px-5 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-200 border",
                       selectedCategory === id
                         ? "text-white border-transparent"
-                        : "text-foreground/50 hover:text-foreground/70 border-white/10"
+                        : ""
                     )}
-                    style={selectedCategory === id ? { background: BROWN, borderColor: 'transparent' } : {}}
+                    style={selectedCategory === id
+                      ? { background: BROWN, borderColor: 'transparent' }
+                      : { background: '#FFFFFF', borderColor: SOFT_BORDER, color: BROWN_DARK }}
                   >
                     {label}
                   </button>
@@ -994,15 +996,15 @@ export const Forum = () => {
               {/* Today's Dua Card */}
               <Card 
                 className="mb-5 border-0 overflow-hidden"
-                style={{ background: CREAM_BG }}
+                style={{ background: CREAM_DEEP }}
               >
                 <CardContent className="p-4">
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center gap-2">
-                      <span className="text-lg">🤲</span>
+                      <Pin className="h-4 w-4" style={{ color: BROWN }} />
                       <span 
                         className="text-xs font-bold uppercase tracking-wider"
-                        style={{ color: BROWN_LIGHT }}
+                        style={{ color: BROWN }}
                       >
                         TODAY'S DUA
                       </span>
@@ -1013,15 +1015,15 @@ export const Forum = () => {
                         toast.success('Dua copied to clipboard');
                       }}
                       className="p-1 transition-colors"
-                      style={{ color: 'rgba(255,255,255,0.3)' }}
+                      style={{ color: BROWN_LIGHT }}
                     >
                       <Share2 className="h-4 w-4" />
                     </button>
                   </div>
-                  <p className="text-center text-lg leading-loose mb-3 font-arabic" style={{ color: 'rgba(255,235,201,0.7)' }}>
+                  <p className="text-center text-lg leading-loose mb-3 font-arabic" style={{ color: BROWN_DARK }}>
                     {todaysDua.arabic}
                   </p>
-                  <p className="text-xs text-center leading-relaxed" style={{ color: 'rgba(255,255,255,0.35)' }}>
+                  <p className="text-xs text-center leading-relaxed" style={{ color: '#7A5C40' }}>
                     {todaysDua.translation}
                   </p>
                 </CardContent>
@@ -1029,19 +1031,19 @@ export const Forum = () => {
 
               {loading ? (
                 <div className="flex flex-col items-center justify-center py-20">
-                  <Loader2 className="h-6 w-6 animate-spin" style={{ color: BROWN_LIGHT }} />
-                  <p className="text-sm text-muted-foreground/50 mt-3">Loading conversations...</p>
+                  <Loader2 className="h-6 w-6 animate-spin" style={{ color: BROWN }} />
+                  <p className="text-sm mt-3" style={{ color: '#9C8569' }}>Loading conversations...</p>
                 </div>
               ) : filteredPosts.length === 0 ? (
-                <div className="text-center py-16 rounded-2xl" style={{ background: 'rgba(255,255,255,0.02)' }}>
-                  <MessageCircle className="h-10 w-10 mx-auto mb-4" style={{ color: 'rgba(255,235,201,0.2)' }} />
-                  <p className="text-foreground/60 font-medium mb-1">
+                <div className="text-center py-16 rounded-2xl" style={{ background: '#FFFFFF' }}>
+                  <MessageCircle className="h-10 w-10 mx-auto mb-4" style={{ color: '#C4A98A' }} />
+                  <p className="font-medium mb-1" style={{ color: BROWN_DARK }}>
                     {searchQuery ? 'No results found' : selectedCategory === 'all' ? 'No conversations yet' : `No ${CATEGORIES.find(c => c.id === selectedCategory)?.label} posts yet`}
                   </p>
-                  <p className="text-sm text-muted-foreground/40 mb-5">Start the first Guftagu!</p>
+                  <p className="text-sm mb-5" style={{ color: '#9C8569' }}>Start the first Guftagu!</p>
                   <Button 
                     onClick={() => setIsCreateDialogOpen(true)}
-                    className="rounded-full px-5"
+                    className="rounded-full px-5 text-white"
                     style={{ background: BROWN }}
                   >
                     <Plus className="h-4 w-4 mr-2" />
