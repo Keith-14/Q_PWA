@@ -2,6 +2,7 @@ import { Home, ShoppingBasket, ScanLine, MessagesSquare } from 'lucide-react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { useLanguage } from '@/contexts/LanguageContext';
+import prayerIcon from '@/assets/prayer-icon.png.asset.json';
 
 const MosqueIcon = ({ className }: { className?: string }) => (
   <svg
