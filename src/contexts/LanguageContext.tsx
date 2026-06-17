@@ -77,10 +77,12 @@ const translations: Record<Language, Record<string, string>> = {
     
     // Bottom Navigation
     'nav.home': 'Home',
-    'nav.store': 'Store',
+    'nav.store': 'Marketplace',
     'nav.guftagu': 'Guftagu',
     'nav.places': 'Places',
     'nav.account': 'Account',
+    'nav.prayer': 'Prayer',
+    'nav.halalScan': 'Halal Scan',
     
     // News page
     'news.title': 'Islamic News',
@@ -198,10 +200,12 @@ const translations: Record<Language, Record<string, string>> = {
     
     // Bottom Navigation
     'nav.home': 'ہوم',
-    'nav.store': 'اسٹور',
+    'nav.store': 'مارکیٹ',
     'nav.guftagu': 'گفتگو',
     'nav.places': 'مقامات',
     'nav.account': 'اکاؤنٹ',
+    'nav.prayer': 'نماز',
+    'nav.halalScan': 'حلال اسکین',
     
     // News page
     'news.title': 'اسلامی خبریں',
@@ -323,6 +327,8 @@ const translations: Record<Language, Record<string, string>> = {
     'nav.guftagu': 'گفتگو',
     'nav.places': 'الأماكن',
     'nav.account': 'الحساب',
+    'nav.prayer': 'الصلاة',
+    'nav.halalScan': 'الماسح الحلال',
     
     // News page
     'news.title': 'الأخبار الإسلامية',
@@ -444,6 +450,8 @@ const translations: Record<Language, Record<string, string>> = {
     'nav.guftagu': 'Guftagu',
     'nav.places': 'Yerler',
     'nav.account': 'Hesap',
+    'nav.prayer': 'Namaz',
+    'nav.halalScan': 'Helal Tarama',
     
     // News page
     'news.title': 'İslami Haberler',
@@ -565,6 +573,8 @@ const translations: Record<Language, Record<string, string>> = {
     'nav.guftagu': 'Guftagu',
     'nav.places': 'Tempat',
     'nav.account': 'Akun',
+    'nav.prayer': 'Shalat',
+    'nav.halalScan': 'Pemindai Halal',
     
     // News page
     'news.title': 'Berita Islam',
@@ -686,6 +696,8 @@ const translations: Record<Language, Record<string, string>> = {
     'nav.guftagu': 'Guftagu',
     'nav.places': 'Tempat',
     'nav.account': 'Akaun',
+    'nav.prayer': 'Solat',
+    'nav.halalScan': 'Imbasan Halal',
     
     // News page
     'news.title': 'Berita Islam',
@@ -807,6 +819,8 @@ const translations: Record<Language, Record<string, string>> = {
     'nav.guftagu': 'Guftagu',
     'nav.places': 'இடங்கள்',
     'nav.account': 'கணக்கு',
+    'nav.prayer': 'தொழுகை',
+    'nav.halalScan': 'ஹலால் ஸ்கேன்',
     
     // News page
     'news.title': 'இஸ்லாமிய செய்திகள்',
@@ -928,6 +942,9 @@ const translations: Record<Language, Record<string, string>> = {
     'nav.guftagu': 'Guftagu',
     'nav.places': 'স্থান',
     'nav.account': 'অ্যাকাউন্ট',
+    'nav.prayer': 'নামাজ',
+    'nav.halalScan': 'হালাল স্ক্যান',
+    
     
     // News page
     'news.title': 'ইসলামিক সংবাদ',
