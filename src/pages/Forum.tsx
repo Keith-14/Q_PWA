@@ -7,7 +7,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, Dialog
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { 
   MessageCircle, Plus, Send, ArrowLeft, Loader2, Trash2, Heart, RefreshCw, 
-  Sparkles, Users, TrendingUp, Hash, AtSign, Search, X, Bookmark, Share2, User, ChevronRight 
+  Sparkles, Users, TrendingUp, Hash, AtSign, Search, X, Flag, Share2, User, ChevronRight, Pin
 } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
@@ -119,11 +119,13 @@ const renderContentWithMentions = (content: string) => {
   });
 };
 
-const BROWN = '#8B5E3C';
-const BROWN_LIGHT = '#A67B5B';
-const BROWN_DARK = '#5C3A2A';
-const CREAM_BG = 'rgba(255, 235, 201, 0.06)';
-const WARM_CARD = 'rgba(60, 45, 30, 0.35)';
+const BROWN = '#7B3F1E';
+const BROWN_LIGHT = '#A35233';
+const BROWN_DARK = '#5C2E15';
+const CREAM_BG = '#FBEFD9';
+const CREAM_DEEP = '#F4DDB6';
+const WARM_CARD = '#FFFFFF';
+const SOFT_BORDER = 'rgba(123, 63, 30, 0.12)';
 
 export const Forum = () => {
   const { user } = useAuth();
