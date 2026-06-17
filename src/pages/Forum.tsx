@@ -7,7 +7,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, Dialog
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { 
   MessageCircle, Plus, Send, ArrowLeft, Loader2, Trash2, Heart, RefreshCw, 
-  Sparkles, Users, TrendingUp, Hash, AtSign, Search, X, Bookmark, Share2, User, ChevronRight 
+  Sparkles, Users, TrendingUp, Hash, AtSign, Search, X, Flag, Share2, User, ChevronRight, Pin
 } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
@@ -119,11 +119,13 @@ const renderContentWithMentions = (content: string) => {
   });
 };
 
-const BROWN = '#8B5E3C';
-const BROWN_LIGHT = '#A67B5B';
-const BROWN_DARK = '#5C3A2A';
-const CREAM_BG = 'rgba(255, 235, 201, 0.06)';
-const WARM_CARD = 'rgba(60, 45, 30, 0.35)';
+const BROWN = '#7B3F1E';
+const BROWN_LIGHT = '#A35233';
+const BROWN_DARK = '#5C2E15';
+const CREAM_BG = '#FBEFD9';
+const CREAM_DEEP = '#F4DDB6';
+const WARM_CARD = '#FFFFFF';
+const SOFT_BORDER = 'rgba(123, 63, 30, 0.12)';
 
 export const Forum = () => {
   const { user } = useAuth();
@@ -587,10 +589,10 @@ export const Forum = () => {
 
   const getCategoryBadgeColor = (category?: string) => {
     switch (category) {
-      case 'general': return 'bg-emerald-500/20 text-emerald-400';
-      case 'dua': return 'bg-amber-500/20 text-amber-400';
-      case 'knowledge': return 'bg-sky-500/20 text-sky-400';
-      default: return 'bg-emerald-500/20 text-emerald-400';
+      case 'general': return 'bg-emerald-100 text-emerald-700';
+      case 'dua': return 'bg-amber-100 text-amber-700';
+      case 'knowledge': return 'bg-sky-100 text-sky-700';
+      default: return 'bg-emerald-100 text-emerald-700';
     }
   };
 
@@ -607,32 +609,34 @@ export const Forum = () => {
 
     return (
       <Card 
-        className="group relative overflow-hidden border-0 shadow-none animate-fade-in"
+        className="group relative overflow-hidden border-0 animate-fade-in rounded-2xl"
         style={{ 
           animationDelay: `${index * 80}ms`,
           background: WARM_CARD,
+          boxShadow: '0 1px 3px rgba(123, 63, 30, 0.06)',
         }}
       >
         <CardContent className="p-4">
           {/* Header: Avatar + Name + Category + Time */}
           <div className="flex items-start gap-3 mb-3">
             <div className="w-11 h-11 rounded-full flex items-center justify-center shrink-0"
-              style={{ background: 'rgba(255,255,255,0.08)' }}
+              style={{ background: '#EAD9BE' }}
             >
-              <User className="h-5 w-5" style={{ color: 'rgba(255,235,201,0.5)' }} />
+              <User className="h-5 w-5" style={{ color: '#A88B66' }} />
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 flex-wrap">
-                <span className="font-semibold text-foreground text-sm">{post.user_name}</span>
+                <span className="font-semibold text-sm" style={{ color: BROWN_DARK }}>{post.user_name}</span>
                 <span className={cn("text-[10px] px-2 py-0.5 rounded-full font-medium uppercase tracking-wide", getCategoryBadgeColor(post.category))}>
                   {getCategoryLabel(post.category)}
                 </span>
               </div>
-              <p className="text-xs text-muted-foreground/50 mt-0.5">{formatTimeAgo(post.created_at)}</p>
+              <p className="text-xs mt-0.5" style={{ color: '#9C8569' }}>{formatTimeAgo(post.created_at)}</p>
             </div>
             {isOwner && (
               <button
-                className="text-muted-foreground/30 hover:text-destructive transition-colors p-1"
+                className="hover:text-destructive transition-colors p-1"
+                style={{ color: '#C4A98A' }}
                 onClick={(e) => {
                   e.stopPropagation();
                   handleDeletePost(post.id);
@@ -645,13 +649,13 @@ export const Forum = () => {
 
           {/* Content */}
           <div className="mb-3">
-            <p className="text-foreground/85 text-sm leading-relaxed">
+            <p className="text-sm leading-relaxed" style={{ color: '#3D2A1E' }}>
               {renderContentWithMentions(contentPreview)}
               {hasMore && (
                 <button 
                   onClick={() => setSelectedPost(post)}
-                  className="text-sm ml-1 hover:underline"
-                  style={{ color: BROWN_LIGHT }}
+                  className="text-sm ml-1 hover:underline font-semibold"
+                  style={{ color: BROWN }}
                 >
                   Read more
                 </button>
@@ -663,23 +667,23 @@ export const Forum = () => {
           {post.content.length > 250 && (
             <div 
               className="w-full h-40 rounded-xl mb-3 flex items-center justify-center"
-              style={{ background: 'rgba(139, 94, 60, 0.15)' }}
+              style={{ background: '#EAD3B0' }}
               onClick={() => setSelectedPost(post)}
             >
-              <span className="text-xs uppercase tracking-widest" style={{ color: 'rgba(255,235,201,0.3)' }}>
+              <span className="text-xs uppercase tracking-widest" style={{ color: '#B59A78' }}>
                 IMAGE_PLACEHOLDER
               </span>
             </div>
           )}
 
           {/* Actions Row */}
-          <div className="flex items-center justify-between pt-3" style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+          <div className="flex items-center justify-between pt-3" style={{ borderTop: `1px solid ${SOFT_BORDER}` }}>
             <div className="flex items-center gap-5">
               <button
                 onClick={() => handleToggleLike(post.id, post.isLiked || false)}
                 disabled={isLiking}
                 className="flex items-center gap-1.5 text-sm transition-colors"
-                style={{ color: post.isLiked ? '#e57373' : 'rgba(255,255,255,0.4)' }}
+                style={{ color: post.isLiked ? '#D9534F' : '#9C8569' }}
               >
                 <Heart className={cn("h-4 w-4", post.isLiked && "fill-current")} />
                 <span className="text-xs tabular-nums">{post.likeCount || 0}</span>
@@ -687,7 +691,7 @@ export const Forum = () => {
               <button
                 onClick={() => setSelectedPost(post)}
                 className="flex items-center gap-1.5 text-sm transition-colors"
-                style={{ color: 'rgba(255,255,255,0.4)' }}
+                style={{ color: '#9C8569' }}
               >
                 <MessageCircle className="h-4 w-4" />
                 <span className="text-xs tabular-nums">{post.replies?.length || 0}</span>
@@ -697,14 +701,14 @@ export const Forum = () => {
               <button
                 onClick={() => handleToggleBookmark(post.id)}
                 className="transition-colors"
-                style={{ color: isBookmarked ? BROWN_LIGHT : 'rgba(255,255,255,0.4)' }}
+                style={{ color: isBookmarked ? BROWN : '#9C8569' }}
               >
-                <Bookmark className={cn("h-4 w-4", isBookmarked && "fill-current")} />
+                <Flag className={cn("h-4 w-4", isBookmarked && "fill-current")} />
               </button>
               <button
                 onClick={() => handleShare(post)}
                 className="transition-colors"
-                style={{ color: 'rgba(255,255,255,0.4)' }}
+                style={{ color: '#9C8569' }}
               >
                 <Share2 className="h-4 w-4" />
               </button>
@@ -719,42 +723,43 @@ export const Forum = () => {
   if (selectedPost) {
     return (
       <Layout>
-        <div className="min-h-screen pb-24">
+        <div className="min-h-screen pb-24" style={{ background: CREAM_BG }}>
           <div className="relative px-4 pt-6">
             <button
               onClick={() => setSelectedPost(null)}
-              className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-6 group"
+              className="flex items-center gap-2 transition-colors mb-6 group"
+              style={{ color: BROWN }}
             >
               <ArrowLeft className="h-5 w-5 group-hover:-translate-x-1 transition-transform duration-300" />
               <span className="font-medium text-sm">Back to Guftagu</span>
             </button>
 
-            <Card className="relative overflow-hidden border-0 mb-6" style={{ background: WARM_CARD }}>
+            <Card className="relative overflow-hidden border-0 mb-6 rounded-2xl" style={{ background: WARM_CARD, boxShadow: '0 1px 3px rgba(123, 63, 30, 0.06)' }}>
               <CardContent className="p-5">
                 <div className="flex items-start gap-3 mb-4">
                   <div className="w-12 h-12 rounded-full flex items-center justify-center shrink-0"
-                    style={{ background: 'rgba(255,255,255,0.08)' }}
+                    style={{ background: '#EAD9BE' }}
                   >
-                    <User className="h-6 w-6" style={{ color: 'rgba(255,235,201,0.5)' }} />
+                    <User className="h-6 w-6" style={{ color: '#A88B66' }} />
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center gap-2">
-                      <span className="font-bold text-foreground">{selectedPost.user_name}</span>
+                      <span className="font-bold" style={{ color: BROWN_DARK }}>{selectedPost.user_name}</span>
                       <span className={cn("text-[10px] px-2 py-0.5 rounded-full font-medium uppercase", getCategoryBadgeColor(selectedPost.category))}>
                         {getCategoryLabel(selectedPost.category)}
                       </span>
                     </div>
-                    <p className="text-xs text-muted-foreground/50 mt-0.5">{formatTimeAgo(selectedPost.created_at)}</p>
+                    <p className="text-xs mt-0.5" style={{ color: '#9C8569' }}>{formatTimeAgo(selectedPost.created_at)}</p>
                   </div>
                 </div>
-                <p className="text-foreground/90 text-[15px] leading-relaxed whitespace-pre-wrap">{renderContentWithMentions(selectedPost.content)}</p>
+                <p className="text-[15px] leading-relaxed whitespace-pre-wrap" style={{ color: '#3D2A1E' }}>{renderContentWithMentions(selectedPost.content)}</p>
                 
-                <div className="flex items-center gap-5 mt-5 pt-4" style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}>
-                  <div className="flex items-center gap-1.5" style={{ color: selectedPost.isLiked ? '#e57373' : 'rgba(255,255,255,0.4)' }}>
+                <div className="flex items-center gap-5 mt-5 pt-4" style={{ borderTop: `1px solid ${SOFT_BORDER}` }}>
+                  <div className="flex items-center gap-1.5" style={{ color: selectedPost.isLiked ? '#D9534F' : '#9C8569' }}>
                     <Heart className={cn("h-4 w-4", selectedPost.isLiked && "fill-current")} />
                     <span className="text-sm">{selectedPost.likeCount || 0}</span>
                   </div>
-                  <div className="flex items-center gap-1.5" style={{ color: 'rgba(255,255,255,0.4)' }}>
+                  <div className="flex items-center gap-1.5" style={{ color: '#9C8569' }}>
                     <MessageCircle className="h-4 w-4" />
                     <span className="text-sm">{selectedPost.replies?.length || 0}</span>
                   </div>
@@ -763,8 +768,8 @@ export const Forum = () => {
             </Card>
 
             <div className="mb-6">
-              <h3 className="font-bold text-foreground mb-4 flex items-center gap-2 text-sm uppercase tracking-wide">
-                <MessageCircle className="h-4 w-4" style={{ color: BROWN_LIGHT }} />
+              <h3 className="font-bold mb-4 flex items-center gap-2 text-sm uppercase tracking-wide" style={{ color: BROWN_DARK }}>
+                <MessageCircle className="h-4 w-4" style={{ color: BROWN }} />
                 Replies
               </h3>
 
@@ -778,49 +783,51 @@ export const Forum = () => {
                       className="rounded-2xl p-4 animate-fade-in"
                       style={{ 
                         animationDelay: `${index * 50}ms`,
-                        background: 'rgba(255,255,255,0.03)',
+                        background: '#FFFFFF',
+                        boxShadow: '0 1px 3px rgba(123, 63, 30, 0.05)',
                       }}
                     >
                       <div className="flex items-center justify-between mb-3">
                         <div className="flex items-center gap-3">
                           <div className="w-9 h-9 rounded-full flex items-center justify-center"
-                            style={{ background: 'rgba(255,255,255,0.08)' }}
+                            style={{ background: '#EAD9BE' }}
                           >
-                            <User className="h-4 w-4" style={{ color: 'rgba(255,235,201,0.5)' }} />
+                            <User className="h-4 w-4" style={{ color: '#A88B66' }} />
                           </div>
                           <div>
-                            <span className="font-semibold text-sm text-foreground">{reply.user_name}</span>
-                            <span className="text-xs text-muted-foreground/50 ml-2">{formatTimeAgo(reply.created_at)}</span>
+                            <span className="font-semibold text-sm" style={{ color: BROWN_DARK }}>{reply.user_name}</span>
+                            <span className="text-xs ml-2" style={{ color: '#9C8569' }}>{formatTimeAgo(reply.created_at)}</span>
                           </div>
                         </div>
                         {isOwner && (
                           <button
-                            className="text-muted-foreground/30 hover:text-destructive transition-colors p-1"
+                            className="hover:text-destructive transition-colors p-1"
+                            style={{ color: '#C4A98A' }}
                             onClick={() => handleDeleteReply(reply.id)}
                           >
                             <Trash2 className="h-3.5 w-3.5" />
                           </button>
                         )}
                       </div>
-                      <p className="text-sm text-foreground/85 leading-relaxed pl-12">{renderContentWithMentions(reply.content)}</p>
+                      <p className="text-sm leading-relaxed pl-12" style={{ color: '#3D2A1E' }}>{renderContentWithMentions(reply.content)}</p>
                     </div>
                   );
                 })}
 
                 {(!selectedPost.replies || selectedPost.replies.length === 0) && (
-                  <div className="text-center py-12 rounded-2xl" style={{ background: 'rgba(255,255,255,0.02)' }}>
-                    <MessageCircle className="h-8 w-8 mx-auto mb-3" style={{ color: 'rgba(255,235,201,0.2)' }} />
-                    <p className="text-muted-foreground/50 font-medium text-sm">No replies yet</p>
-                    <p className="text-xs text-muted-foreground/30 mt-1">Be the first to reply!</p>
+                  <div className="text-center py-12 rounded-2xl" style={{ background: '#FFFFFF' }}>
+                    <MessageCircle className="h-8 w-8 mx-auto mb-3" style={{ color: '#C4A98A' }} />
+                    <p className="font-medium text-sm" style={{ color: BROWN_DARK }}>No replies yet</p>
+                    <p className="text-xs mt-1" style={{ color: '#9C8569' }}>Be the first to reply!</p>
                   </div>
                 )}
               </div>
 
               <div className="mt-6 flex gap-3">
                 <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0"
-                  style={{ background: 'rgba(255,255,255,0.08)' }}
+                  style={{ background: '#EAD9BE' }}
                 >
-                  <User className="h-4 w-4" style={{ color: 'rgba(255,235,201,0.5)' }} />
+                  <User className="h-4 w-4" style={{ color: '#A88B66' }} />
                 </div>
                 <div className="flex-1 flex gap-2">
                   <div className="relative flex-1">
@@ -829,19 +836,20 @@ export const Forum = () => {
                       onChange={(e) => handleContentChange(e.target.value, 'reply')}
                       placeholder="Write a reply..."
                       className="min-h-[48px] max-h-[120px] resize-none rounded-xl border-0"
-                      style={{ background: 'rgba(255,255,255,0.05)' }}
+                      style={{ background: '#FFFFFF', color: BROWN_DARK, border: `1px solid ${SOFT_BORDER}` }}
                     />
                     {showMentionSuggestions && mentionTarget === 'reply' && filteredSuggestions.length > 0 && (
                       <div className="absolute bottom-full left-0 right-0 mb-1 rounded-lg shadow-lg overflow-hidden z-50 border"
-                        style={{ background: 'rgba(30,30,30,0.95)', borderColor: 'rgba(255,255,255,0.1)' }}
+                        style={{ background: '#FFFFFF', borderColor: SOFT_BORDER }}
                       >
                         {filteredSuggestions.map((name) => (
                           <button
                             key={name}
                             onClick={() => insertMention(name)}
-                            className="w-full px-3 py-2 text-left text-sm hover:bg-white/5 flex items-center gap-2 transition-colors"
+                            className="w-full px-3 py-2 text-left text-sm hover:bg-amber-50 flex items-center gap-2 transition-colors"
+                            style={{ color: BROWN_DARK }}
                           >
-                            <AtSign className="h-3 w-3" style={{ color: BROWN_LIGHT }} />
+                            <AtSign className="h-3 w-3" style={{ color: BROWN }} />
                             <span className="font-medium">{name}</span>
                           </button>
                         ))}
@@ -852,7 +860,7 @@ export const Forum = () => {
                     onClick={handleAddReply}
                     disabled={!newReply.trim() || submitting}
                     size="icon"
-                    className="h-12 w-12 rounded-xl shrink-0 border-0"
+                    className="h-12 w-12 rounded-xl shrink-0 border-0 text-white"
                     style={{ background: BROWN }}
                   >
                     {submitting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
@@ -883,6 +891,7 @@ export const Forum = () => {
       <div 
         ref={containerRef}
         className="min-h-screen pb-24 overflow-auto"
+        style={{ background: CREAM_BG }}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
@@ -907,14 +916,14 @@ export const Forum = () => {
           {searchOpen && (
             <div className="mb-4 animate-fade-in">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/50" />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4" style={{ color: BROWN_LIGHT }} />
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search posts..."
-                  className="w-full pl-9 pr-4 py-2.5 rounded-xl text-sm text-foreground placeholder:text-muted-foreground/40 outline-none"
-                  style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)' }}
+                  className="w-full pl-9 pr-4 py-2.5 rounded-xl text-sm outline-none"
+                  style={{ background: '#FFFFFF', border: `1px solid ${SOFT_BORDER}`, color: BROWN_DARK }}
                   autoFocus
                 />
               </div>
@@ -928,15 +937,15 @@ export const Forum = () => {
               className="relative pb-2.5 px-1 mr-6"
             >
               <span 
-                className="text-sm font-medium transition-colors"
-                style={{ color: activeTab === 'announcements' ? BROWN_LIGHT : 'rgba(255,255,255,0.4)' }}
+                className="text-base font-bold transition-colors"
+                style={{ color: activeTab === 'announcements' ? BROWN : '#9C8569' }}
               >
                 Announcements
               </span>
               {activeTab === 'announcements' && (
                 <div 
-                  className="absolute bottom-0 left-0 right-0 h-0.5 rounded-full"
-                  style={{ background: BROWN_LIGHT }}
+                  className="absolute bottom-0 left-0 right-0 h-[2px] rounded-full"
+                  style={{ background: BROWN }}
                 />
               )}
             </button>
@@ -945,15 +954,15 @@ export const Forum = () => {
               className="relative pb-2.5 px-1"
             >
               <span 
-                className="text-sm font-medium transition-colors"
-                style={{ color: activeTab === 'communities' ? BROWN_LIGHT : 'rgba(255,255,255,0.4)' }}
+                className="text-base font-medium transition-colors"
+                style={{ color: activeTab === 'communities' ? BROWN : '#9C8569' }}
               >
                 My Communities
               </span>
               {activeTab === 'communities' && (
                 <div 
-                  className="absolute bottom-0 left-0 right-0 h-0.5 rounded-full"
-                  style={{ background: BROWN_LIGHT }}
+                  className="absolute bottom-0 left-0 right-0 h-[2px] rounded-full"
+                  style={{ background: BROWN }}
                 />
               )}
             </button>
@@ -961,9 +970,9 @@ export const Forum = () => {
 
           {activeTab === 'communities' ? (
             <div className="text-center py-20">
-              <Users className="h-10 w-10 mx-auto mb-4" style={{ color: 'rgba(255,235,201,0.2)' }} />
-              <p className="text-muted-foreground/60 font-medium">My Communities</p>
-              <p className="text-sm text-muted-foreground/40 mt-1">Coming soon</p>
+              <Users className="h-10 w-10 mx-auto mb-4" style={{ color: '#C4A98A' }} />
+              <p className="font-medium" style={{ color: BROWN_DARK }}>My Communities</p>
+              <p className="text-sm mt-1" style={{ color: '#9C8569' }}>Coming soon</p>
             </div>
           ) : (
             <>
@@ -974,12 +983,14 @@ export const Forum = () => {
                     key={id}
                     onClick={() => setSelectedCategory(id)}
                     className={cn(
-                      "px-4 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-all duration-200 border",
+                      "px-5 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-200 border",
                       selectedCategory === id
                         ? "text-white border-transparent"
-                        : "text-foreground/50 hover:text-foreground/70 border-white/10"
+                        : ""
                     )}
-                    style={selectedCategory === id ? { background: BROWN, borderColor: 'transparent' } : {}}
+                    style={selectedCategory === id
+                      ? { background: BROWN, borderColor: 'transparent' }
+                      : { background: '#FFFFFF', borderColor: SOFT_BORDER, color: BROWN_DARK }}
                   >
                     {label}
                   </button>
@@ -989,15 +1000,15 @@ export const Forum = () => {
               {/* Today's Dua Card */}
               <Card 
                 className="mb-5 border-0 overflow-hidden"
-                style={{ background: CREAM_BG }}
+                style={{ background: CREAM_DEEP }}
               >
                 <CardContent className="p-4">
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center gap-2">
-                      <span className="text-lg">🤲</span>
+                      <Pin className="h-4 w-4" style={{ color: BROWN }} />
                       <span 
                         className="text-xs font-bold uppercase tracking-wider"
-                        style={{ color: BROWN_LIGHT }}
+                        style={{ color: BROWN }}
                       >
                         TODAY'S DUA
                       </span>
@@ -1008,15 +1019,15 @@ export const Forum = () => {
                         toast.success('Dua copied to clipboard');
                       }}
                       className="p-1 transition-colors"
-                      style={{ color: 'rgba(255,255,255,0.3)' }}
+                      style={{ color: BROWN_LIGHT }}
                     >
                       <Share2 className="h-4 w-4" />
                     </button>
                   </div>
-                  <p className="text-center text-lg leading-loose mb-3 font-arabic" style={{ color: 'rgba(255,235,201,0.7)' }}>
+                  <p className="text-center text-lg leading-loose mb-3 font-arabic" style={{ color: BROWN_DARK }}>
                     {todaysDua.arabic}
                   </p>
-                  <p className="text-xs text-center leading-relaxed" style={{ color: 'rgba(255,255,255,0.35)' }}>
+                  <p className="text-xs text-center leading-relaxed" style={{ color: '#7A5C40' }}>
                     {todaysDua.translation}
                   </p>
                 </CardContent>
@@ -1024,19 +1035,19 @@ export const Forum = () => {
 
               {loading ? (
                 <div className="flex flex-col items-center justify-center py-20">
-                  <Loader2 className="h-6 w-6 animate-spin" style={{ color: BROWN_LIGHT }} />
-                  <p className="text-sm text-muted-foreground/50 mt-3">Loading conversations...</p>
+                  <Loader2 className="h-6 w-6 animate-spin" style={{ color: BROWN }} />
+                  <p className="text-sm mt-3" style={{ color: '#9C8569' }}>Loading conversations...</p>
                 </div>
               ) : filteredPosts.length === 0 ? (
-                <div className="text-center py-16 rounded-2xl" style={{ background: 'rgba(255,255,255,0.02)' }}>
-                  <MessageCircle className="h-10 w-10 mx-auto mb-4" style={{ color: 'rgba(255,235,201,0.2)' }} />
-                  <p className="text-foreground/60 font-medium mb-1">
+                <div className="text-center py-16 rounded-2xl" style={{ background: '#FFFFFF' }}>
+                  <MessageCircle className="h-10 w-10 mx-auto mb-4" style={{ color: '#C4A98A' }} />
+                  <p className="font-medium mb-1" style={{ color: BROWN_DARK }}>
                     {searchQuery ? 'No results found' : selectedCategory === 'all' ? 'No conversations yet' : `No ${CATEGORIES.find(c => c.id === selectedCategory)?.label} posts yet`}
                   </p>
-                  <p className="text-sm text-muted-foreground/40 mb-5">Start the first Guftagu!</p>
+                  <p className="text-sm mb-5" style={{ color: '#9C8569' }}>Start the first Guftagu!</p>
                   <Button 
                     onClick={() => setIsCreateDialogOpen(true)}
-                    className="rounded-full px-5"
+                    className="rounded-full px-5 text-white"
                     style={{ background: BROWN }}
                   >
                     <Plus className="h-4 w-4 mr-2" />
@@ -1058,7 +1069,7 @@ export const Forum = () => {
         <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
           <DialogTrigger asChild>
             <Button
-              className="fixed bottom-24 right-4 h-14 w-14 rounded-full shadow-xl transition-all duration-300 z-50 border-0"
+              className="fixed bottom-24 right-4 h-14 w-14 rounded-full shadow-xl transition-all duration-300 z-50 border-0 text-white"
               size="icon"
               style={{ background: BROWN }}
             >
@@ -1066,25 +1077,25 @@ export const Forum = () => {
             </Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-md border-0"
-            style={{ background: 'rgba(25,25,25,0.98)' }}
+            style={{ background: '#FFF8EA' }}
           >
             <DialogHeader>
-              <DialogTitle className="text-xl flex items-center gap-2" style={{ color: BROWN_LIGHT }}>
+              <DialogTitle className="text-xl flex items-center gap-2" style={{ color: BROWN }}>
                 <Sparkles className="h-5 w-5" />
                 Share Your Thoughts
               </DialogTitle>
-              <DialogDescription className="text-muted-foreground/50 text-sm">
+              <DialogDescription className="text-sm" style={{ color: '#9C8569' }}>
                 Post a message for the community to see and engage with.
               </DialogDescription>
             </DialogHeader>
             <div className="space-y-4 mt-2">
               <div className="flex items-center gap-2">
-                <Hash className="h-4 w-4 text-muted-foreground/50" />
+                <Hash className="h-4 w-4" style={{ color: BROWN_LIGHT }} />
                 <Select value={newPostCategory} onValueChange={setNewPostCategory}>
-                  <SelectTrigger className="w-[180px] text-sm border-0" style={{ background: 'rgba(255,255,255,0.05)' }}>
+                  <SelectTrigger className="w-[180px] text-sm" style={{ background: '#FFFFFF', borderColor: SOFT_BORDER, color: BROWN_DARK }}>
                     <SelectValue placeholder="Select category" />
                   </SelectTrigger>
-                  <SelectContent style={{ background: 'rgba(30,30,30,0.98)' }}>
+                  <SelectContent style={{ background: '#FFFFFF' }}>
                     {CATEGORIES.filter(c => c.id !== 'all').map(({ id, label }) => (
                       <SelectItem key={id} value={id}>{label}</SelectItem>
                     ))}
@@ -1094,30 +1105,31 @@ export const Forum = () => {
 
               <div className="flex items-start gap-3">
                 <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0"
-                  style={{ background: 'rgba(255,255,255,0.08)' }}
+                  style={{ background: '#EAD9BE' }}
                 >
-                  <User className="h-4 w-4" style={{ color: 'rgba(255,235,201,0.5)' }} />
+                  <User className="h-4 w-4" style={{ color: '#A88B66' }} />
                 </div>
                 <div className="relative flex-1">
                   <Textarea
                     value={newPostContent}
                     onChange={(e) => handleContentChange(e.target.value, 'post')}
                     placeholder="What's on your mind..."
-                    className="min-h-[120px] resize-none rounded-xl border-0"
-                    style={{ background: 'rgba(255,255,255,0.05)' }}
+                    className="min-h-[120px] resize-none rounded-xl"
+                    style={{ background: '#FFFFFF', color: BROWN_DARK, border: `1px solid ${SOFT_BORDER}` }}
                     maxLength={500}
                   />
                   {showMentionSuggestions && mentionTarget === 'post' && filteredSuggestions.length > 0 && (
                     <div className="absolute bottom-full left-0 right-0 mb-1 rounded-lg shadow-lg overflow-hidden z-50 border"
-                      style={{ background: 'rgba(30,30,30,0.95)', borderColor: 'rgba(255,255,255,0.1)' }}
+                      style={{ background: '#FFFFFF', borderColor: SOFT_BORDER }}
                     >
                       {filteredSuggestions.map((name) => (
                         <button
                           key={name}
                           onClick={() => insertMention(name)}
-                          className="w-full px-3 py-2 text-left text-sm hover:bg-white/5 flex items-center gap-2 transition-colors"
+                          className="w-full px-3 py-2 text-left text-sm hover:bg-amber-50 flex items-center gap-2 transition-colors"
+                          style={{ color: BROWN_DARK }}
                         >
-                          <AtSign className="h-3 w-3" style={{ color: BROWN_LIGHT }} />
+                          <AtSign className="h-3 w-3" style={{ color: BROWN }} />
                           <span className="font-medium">{name}</span>
                         </button>
                       ))}
@@ -1126,13 +1138,13 @@ export const Forum = () => {
                 </div>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-xs text-muted-foreground/40 tabular-nums">
+                <span className="text-xs tabular-nums" style={{ color: '#9C8569' }}>
                   {newPostContent.length}/500
                 </span>
                 <Button
                   onClick={handleCreatePost}
                   disabled={!newPostContent.trim() || submitting}
-                  className="rounded-full px-6 border-0"
+                  className="rounded-full px-6 border-0 text-white"
                   style={{ background: BROWN }}
                 >
                   {submitting ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Send className="h-4 w-4 mr-2" />}
