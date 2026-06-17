@@ -72,7 +72,7 @@ export const Checkout = () => {
 
       clearCart();
       toast.success('Order placed successfully!');
-      navigate('/shop');
+      navigate(`/order-confirmation/${orderData.id}`);
     } catch (e: any) {
       console.error(e);
       toast.error('Failed to place order. Please try again.');
