@@ -46,7 +46,7 @@ export const BottomNavigation = () => {
             boxShadow: '0 8px 24px rgba(60, 30, 15, 0.12), 0 2px 6px rgba(60, 30, 15, 0.06)',
           }}
         >
-          {navItems.map(({ icon: Icon, labelKey, path }) => {
+          {navItems.map(({ icon: Icon, labelKey, path, isImage }) => {
             const isActive = location.pathname === path || (path !== '/' && location.pathname.startsWith(path));
             return (
               <button
@@ -59,10 +59,14 @@ export const BottomNavigation = () => {
                   backgroundColor: isActive ? ACTIVE_BG : 'transparent',
                 }}
               >
-                <Icon
-                  className="h-[22px] w-[22px]"
-                  style={{ color: isActive ? TEXT_ACTIVE : TEXT_INACTIVE }}
-                />
+                {isImage ? (
+                  <PrayerIcon isActive={isActive} />
+                ) : (
+                  <Icon
+                    className="h-[22px] w-[22px]"
+                    style={{ color: isActive ? TEXT_ACTIVE : TEXT_INACTIVE }}
+                  />
+                )}
                 <span
                   className="text-[11px] font-semibold leading-none mt-0.5"
                   style={{ color: isActive ? TEXT_ACTIVE : TEXT_INACTIVE }}
