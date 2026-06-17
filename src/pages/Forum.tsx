@@ -589,10 +589,10 @@ export const Forum = () => {
 
   const getCategoryBadgeColor = (category?: string) => {
     switch (category) {
-      case 'general': return 'bg-emerald-500/20 text-emerald-400';
-      case 'dua': return 'bg-amber-500/20 text-amber-400';
-      case 'knowledge': return 'bg-sky-500/20 text-sky-400';
-      default: return 'bg-emerald-500/20 text-emerald-400';
+      case 'general': return 'bg-emerald-100 text-emerald-700';
+      case 'dua': return 'bg-amber-100 text-amber-700';
+      case 'knowledge': return 'bg-sky-100 text-sky-700';
+      default: return 'bg-emerald-100 text-emerald-700';
     }
   };
 
