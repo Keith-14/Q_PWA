@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Menu, Bell, MapPin, ChevronDown, Sun, Sunrise, Sunset, Moon, Cloud, CloudSun, Sparkles, BookOpen, Calculator, Smile, Compass, CheckCircle2, Package } from 'lucide-react';
+import { Menu, Bell, MapPin, ChevronDown, Sun, Sunrise, Sunset, Moon, Cloud, CloudSun, Sparkles, Calculator, Smile, Compass, CheckCircle2, Package } from 'lucide-react';
 import { SideMenu } from '@/components/SideMenu';
 import { BottomNavigation } from '@/components/BottomNavigation';
 import { useGlobalLocation } from '@/contexts/LocationContext';
@@ -8,6 +8,7 @@ import qaQuran from '@/assets/qa-quran.png';
 import qaHajj from '@/assets/qa-hajj.png';
 import qaPlaces from '@/assets/qa-places.png';
 import prayerArcLogo from '@/assets/prayer-arc-logo.png.asset.json';
+import hadithIcon from '@/assets/hadith-icon.png.asset.json';
 
 const CREAM = '#FFF1DD';
 const CREAM_CARD = '#FFF7E8';
@@ -37,7 +38,7 @@ const fmt12 = (h: number, m: number) => {
 };
 
 const essentials = [
-  { label: 'Hadith', img: null, icon: BookOpen, path: '/quran' },
+  { label: 'Hadith', img: hadithIcon.url, icon: null, path: '/quran' },
   { label: 'Quran', img: qaQuran, icon: null, path: '/quran' },
   { label: 'Hajj Packages', img: qaHajj, icon: null, path: '/hajj' },
   { label: 'Places', img: qaPlaces, icon: null, path: '/places' },
