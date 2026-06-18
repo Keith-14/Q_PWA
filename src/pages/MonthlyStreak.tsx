@@ -40,7 +40,7 @@ export const MonthlyStreak = () => {
   useEffect(() => {
     if (!user) { setLoading(false); return; }
     let cancelled = false;
-    (async () => {
+    const load = async () => {
       setLoading(true);
       const start = fmt(new Date(year, month, 1));
       const end = fmt(new Date(year, month + 1, 0));
@@ -54,8 +54,23 @@ export const MonthlyStreak = () => {
       setLogs(map);
       setAllLogs((lifetime as any) || []);
       setLoading(false);
-    })();
-    return () => { cancelled = true; };
+    };
+    load();
+
+    // Realtime: refetch whenever this user's salah_log changes
+    const channel = supabase
+      .channel(`salah_log:${user.uid}`)
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'salah_log', filter: `user_id=eq.${user.uid}` },
+        () => { load(); },
+      )
+      .subscribe();
+
+    return () => {
+      cancelled = true;
+      supabase.removeChannel(channel);
+    };
   }, [user, year, month]);
 
   const daysInMonth = new Date(year, month + 1, 0).getDate();
@@ -80,19 +95,12 @@ export const MonthlyStreak = () => {
 
   const totalComplete = allLogs.reduce((s, l) => s + completedCount(l), 0);
 
-  // Qada count: missed prayers on past days (not today/future)
+  // Qada count: missed prayers ONLY on past days the user actually logged something
+  // (avoids counting every untouched day since signup as a missed day).
   const todayStr = fmt(today);
-  const qadaCount = (() => {
-    let missed = 0;
-    const byDate = new Map(allLogs.map(l => [l.date, l] as const));
-    if (allLogs.length === 0) return 0;
-    const first = new Date(allLogs[0].date);
-    for (let d = new Date(first); fmt(d) < todayStr; d.setDate(d.getDate() + 1)) {
-      const l = byDate.get(fmt(d));
-      missed += 5 - completedCount(l);
-    }
-    return missed;
-  })();
+  const qadaCount = allLogs
+    .filter(l => l.date < todayStr)
+    .reduce((s, l) => s + (5 - completedCount(l)), 0);
 
   // Best streak (consecutive full days)
   const bestStreak = (() => {
