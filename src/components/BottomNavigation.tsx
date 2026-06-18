@@ -83,23 +83,20 @@ export const BottomNavigation = () => {
             boxShadow: '0 10px 28px rgba(60, 30, 15, 0.14), 0 2px 6px rgba(60, 30, 15, 0.06)',
           }}
         >
-          {NAV_ITEMS.map(({ key, labelKey, path, render }) => {
+          {NAV_ITEMS.map(({ key, path, render }) => {
             const isActive = path === '/' ? location.pathname === '/' : location.pathname.startsWith(path);
-            const color = isActive ? TEXT_ACTIVE : TEXT_INACTIVE;
             return (
               <button
                 key={key}
                 onClick={() => navigate(path)}
-                className="flex flex-col items-center justify-center gap-1 py-2 px-4 rounded-full transition-all duration-200"
-                style={{ backgroundColor: isActive ? ACTIVE_BG : 'transparent' }}
+                className="flex items-center justify-center rounded-full transition-all duration-200"
+                style={{
+                  backgroundColor: isActive ? ACTIVE_BG : 'transparent',
+                  width: 52,
+                  height: 52,
+                }}
               >
                 {render(isActive)}
-                <span
-                  className="text-[12px] leading-none"
-                  style={{ color, fontWeight: isActive ? 700 : 600 }}
-                >
-                  {t(labelKey)}
-                </span>
               </button>
             );
           })}
