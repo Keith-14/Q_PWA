@@ -1,21 +1,55 @@
+import navHomeIcon from '@/assets/nav-home-icon.png.asset.json';
+import navMarketplaceIcon from '@/assets/nav-marketplace-icon.png.asset.json';
 import navPrayerIcon from '@/assets/nav-prayer-icon.png.asset.json';
-import { Home as HomeIcon, ShoppingBasket, ScanLine, MessageSquare } from 'lucide-react';
+import { ScanLine, MessageSquare } from 'lucide-react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
-
 
 const PILL_BG = '#FFFFFF';
 const ACTIVE_BG = '#F5E3D3';
 const TEXT_ACTIVE = '#7A3B1E';
 const TEXT_INACTIVE = '#9A9A9A';
 
-// Prayer icon image component
-const PrayerIconImg = ({ color, size = 26 }: { color: string; size?: number }) => (
+// Custom image icon components
+const HomeIconImg = ({ isActive }: { isActive: boolean }) => (
+  <img
+    src={navHomeIcon.url}
+    alt="Home"
+    className="shrink-0"
+    style={{
+      width: 28,
+      height: 28,
+      objectFit: 'contain',
+      filter: isActive ? 'none' : 'grayscale(100%) brightness(1.4)',
+    }}
+  />
+);
+
+const MarketplaceIconImg = ({ isActive }: { isActive: boolean }) => (
+  <img
+    src={navMarketplaceIcon.url}
+    alt="Marketplace"
+    className="shrink-0"
+    style={{
+      width: 28,
+      height: 28,
+      objectFit: 'contain',
+      filter: isActive ? 'none' : 'grayscale(100%) brightness(1.4)',
+    }}
+  />
+);
+
+const PrayerIconImg = ({ isActive }: { isActive: boolean }) => (
   <img
     src={navPrayerIcon.url}
     alt="Prayer"
     className="shrink-0"
-    style={{ width: size, height: size, filter: color === TEXT_ACTIVE ? 'none' : 'grayscale(100%) brightness(1.2)' }}
+    style={{
+      width: 28,
+      height: 28,
+      objectFit: 'contain',
+      filter: isActive ? 'none' : 'grayscale(100%) brightness(1.4)',
+    }}
   />
 );
 
@@ -23,14 +57,14 @@ type NavItem = {
   key: string;
   labelKey: string;
   path: string;
-  render: (color: string) => JSX.Element;
+  render: (isActive: boolean) => JSX.Element;
 };
 
 const NAV_ITEMS: NavItem[] = [
-  { key: 'home', labelKey: 'nav.home', path: '/', render: (c) => <HomeIcon size={24} color={c} strokeWidth={2} /> },
-  { key: 'shop', labelKey: 'nav.store', path: '/shop', render: (c) => <ShoppingBasket size={24} color={c} strokeWidth={1.8} /> },
-  { key: 'prayer', labelKey: 'nav.prayer', path: '/prayer-times', render: (c) => <PrayerIconImg color={c} size={26} /> },
-  { key: 'scan', labelKey: 'nav.halalScan', path: '/halal-scanner', render: (c) => <ScanLine size={24} color={c} strokeWidth={1.8} /> },
+  { key: 'home', labelKey: 'nav.home', path: '/', render: (a) => <HomeIconImg isActive={a} /> },
+  { key: 'shop', labelKey: 'nav.store', path: '/shop', render: (a) => <MarketplaceIconImg isActive={a} /> },
+  { key: 'prayer', labelKey: 'nav.prayer', path: '/prayer-times', render: (a) => <PrayerIconImg isActive={a} /> },
+  { key: 'scan', labelKey: 'nav.halalScan', path: '/halal-scanner', render: (a) => <ScanLine size={26} color={a ? TEXT_ACTIVE : TEXT_INACTIVE} strokeWidth={1.8} /> },
 ];
 
 export const BottomNavigation = () => {
@@ -58,7 +92,7 @@ export const BottomNavigation = () => {
                 className="flex flex-col items-center justify-center gap-1 py-2 px-4 rounded-full transition-all duration-200"
                 style={{ backgroundColor: isActive ? ACTIVE_BG : 'transparent' }}
               >
-                {render(color)}
+                {render(isActive)}
                 <span
                   className="text-[12px] leading-none"
                   style={{ color, fontWeight: isActive ? 700 : 600 }}
