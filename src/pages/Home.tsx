@@ -10,7 +10,7 @@ import prayerIcon from '@/assets/prayer-icon.png.asset.json';
 import qaQuranAsset from '@/assets/qa-quran-new.png.asset.json';
 import qaAiAsset from '@/assets/qa-ai-new.png.asset.json';
 import qaPlacesAsset from '@/assets/qa-places-new.png.asset.json';
-import qaHajj from '@/assets/qa-hajj.png';
+import qaHajjAsset from '@/assets/qa-hajj-new.png.asset.json';
 
 interface NewsItem {
   id: string;
@@ -107,7 +107,7 @@ export const Home = () => {
     { label: 'Quran', img: qaQuranAsset.url, onClick: () => navigate('/quran') },
     { label: 'Islamic AI', img: qaAiAsset.url, onClick: () => setIsChatOpen(true) },
     { label: 'Places', img: qaPlacesAsset.url, onClick: () => navigate('/places') },
-    { label: 'Hajj Packages', img: qaHajj, onClick: () => navigate('/hajj') },
+    { label: 'Hajj Packages', img: qaHajjAsset.url, onClick: () => navigate('/hajj') },
   ];
 
   return (
