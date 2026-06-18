@@ -1,14 +1,49 @@
-import { Layout } from '@/components/Layout';
-import { Card } from '@/components/ui/card';
-import { Sunrise, Sun, SunDim, Sunset, Moon, BookOpen, ChevronDown, ChevronUp } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Menu, Bell, MapPin, ChevronDown, Sun, Sunrise, Sunset, Moon, Cloud, CloudSun, Sparkles, BookOpen, Calculator, Smile, Compass, CheckCircle2, Package } from 'lucide-react';
+import { SideMenu } from '@/components/SideMenu';
+import { BottomNavigation } from '@/components/BottomNavigation';
+import { useGlobalLocation } from '@/contexts/LocationContext';
+import qaQuran from '@/assets/qa-quran.png';
+import qaHajj from '@/assets/qa-hajj.png';
+import qaPlaces from '@/assets/qa-places.png';
 
-const prayerTimes = [
-  { name: 'FAJR', time: '04:52', icon: Sunrise, label: 'DAWN PRAYER' },
-  { name: 'DHUHR', time: '12:45', icon: Sun, label: 'MIDDAY PRAYER' },
-  { name: 'MAGHRIB', time: '19:18', icon: Sunset, label: 'SUNSET PRAYER' },
-  { name: 'ASR', time: '17:17', icon: SunDim, label: 'AFTERNOON PRAYER' },
-  { name: "ISHA'A", time: '20:38', icon: Moon, label: 'NIGHT PRAYER' },
+const CREAM = '#FFF1DD';
+const CREAM_CARD = '#FFF7E8';
+const BROWN = '#2C1309';
+const BROWN_ACCENT = '#B0431E';
+const HERO_GRAD = 'linear-gradient(177deg, #78351A 2.14%, #CE5728 97.86%)';
+const DAILY_GREEN = '#3F5A2E';
+
+type PrayerKey = 'sunrise' | 'fajr' | 'dhuhr' | 'asr' | 'maghrib' | 'isha';
+
+const PRAYERS: { key: PrayerKey; label: string; h: number; m: number; icon: any }[] = [
+  { key: 'sunrise', label: 'Sunrise', h: 5, m: 48, icon: Sun },
+  { key: 'fajr', label: 'Fajr', h: 4, m: 52, icon: CloudSun },
+  { key: 'dhuhr', label: 'Dhuhr', h: 12, m: 45, icon: Sun },
+  { key: 'asr', label: 'Asr', h: 15, m: 47, icon: Cloud },
+  { key: 'maghrib', label: 'Maghrib', h: 18, m: 38, icon: Sunset },
+  { key: 'isha', label: 'Isha', h: 19, m: 55, icon: Moon },
+];
+
+const fmt = (h: number, m: number) =>
+  `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}`;
+
+const fmt12 = (h: number, m: number) => {
+  const ampm = h >= 12 ? 'pm' : 'am';
+  const dh = ((h + 11) % 12) + 1;
+  return `${dh}:${m.toString().padStart(2, '0')} ${ampm}`;
+};
+
+const essentials = [
+  { label: 'Hadith', img: null, icon: BookOpen, path: '/quran' },
+  { label: 'Quran', img: qaQuran, icon: null, path: '/quran' },
+  { label: 'Hajj Packages', img: qaHajj, icon: null, path: '/hajj' },
+  { label: 'Places', img: qaPlaces, icon: null, path: '/places' },
+  { label: 'Zakat Calc.', img: null, icon: Calculator, path: '/zakat' },
+  { label: 'Mood Tracker', img: null, icon: Smile, path: '/mood' },
+  { label: 'Qibla', img: null, icon: Compass, path: '/qibla' },
+  { label: 'Prayer Mark', img: null, icon: CheckCircle2, path: '/progress' },
 ];
 
 const prayerGuidelines = [
@@ -68,126 +103,221 @@ const prayerGuidelines = [
 ];
 
 export const PrayerTimes = () => {
-  const [expandedGuideline, setExpandedGuideline] = useState<string | null>(null);
+  const navigate = useNavigate();
+  const { location } = useGlobalLocation();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [now, setNow] = useState(new Date());
 
-  const toggleGuideline = (name: string) => {
-    setExpandedGuideline(expandedGuideline === name ? null : name);
-  };
+  useEffect(() => {
+    const id = setInterval(() => setNow(new Date()), 30000);
+    return () => clearInterval(id);
+  }, []);
+
+  const hijri = useMemo(
+    () =>
+      new Intl.DateTimeFormat('en-u-ca-islamic', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+      })
+        .format(now)
+        .replace(' AH', ''),
+    [now]
+  );
+
+  const cur = now.getHours() * 60 + now.getMinutes();
+  const orderedDay = PRAYERS.filter((p) => p.key !== 'sunrise');
+  const next =
+    orderedDay.find((p) => p.h * 60 + p.m > cur) || orderedDay[0];
+  const cityLabel = location?.city || 'Dubai';
 
   return (
-    <Layout>
-      <div className="px-4 py-6 space-y-6">
-        <div>
-          <h1 className="text-2xl font-bold text-primary mb-2">Prayer Times</h1>
-          <p className="text-sm text-muted-foreground">
-            Imsak 04:52 | Sunrise 06:12
+    <div
+      className="min-h-screen max-w-md mx-auto relative overflow-hidden font-arabic"
+      style={{ background: CREAM }}
+    >
+      {/* Top bar */}
+      <div className="flex items-center justify-between px-5 pt-4 pb-3" style={{ background: CREAM }}>
+        <button
+          onClick={() => setIsMenuOpen(true)}
+          className="p-2 -ml-2"
+          style={{ color: BROWN }}
+          aria-label="Menu"
+        >
+          <Menu className="h-6 w-6" strokeWidth={2} />
+        </button>
+        <h1
+          className="text-[20px] font-bold"
+          style={{ color: BROWN, fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+        >
+          Prayers
+        </h1>
+        <button
+          className="w-10 h-10 rounded-full flex items-center justify-center relative"
+          style={{ background: '#F1E0C8', color: BROWN }}
+          aria-label="Notifications"
+        >
+          <Bell className="h-5 w-5" strokeWidth={2} />
+          <span className="absolute top-2 right-2 w-2 h-2 rounded-full" style={{ background: '#E89D2F' }} />
+        </button>
+      </div>
+
+      {/* Hero arc card */}
+      <div
+        className="relative mx-0 px-5 pt-6 pb-10 overflow-hidden"
+        style={{ background: HERO_GRAD, borderBottomLeftRadius: 32, borderBottomRightRadius: 32 }}
+      >
+        {/* Arc */}
+        <svg viewBox="0 0 320 140" className="absolute inset-x-0 top-3 w-full" preserveAspectRatio="none" style={{ height: 150 }}>
+          <path d="M 30 140 Q 160 -20 290 140" fill="none" stroke="rgba(255,232,202,0.45)" strokeWidth="1" />
+        </svg>
+
+        {/* Center B badge */}
+        <div className="relative z-10 flex justify-center">
+          <div
+            className="w-12 h-12 rounded-full flex items-center justify-center"
+            style={{ background: '#FFF1DD', boxShadow: '0 4px 16px rgba(0,0,0,0.18)' }}
+          >
+            <span style={{ color: BROWN_ACCENT, fontFamily: "'Reem Kufi', serif", fontWeight: 700, fontSize: 22 }}>
+              ɞ
+            </span>
+          </div>
+        </div>
+
+        <div className="relative z-10 text-center mt-8">
+          <p className="text-[14px]" style={{ color: '#FFE8CA', opacity: 0.9 }}>
+            {hijri}
+          </p>
+          <p
+            className="text-[28px] mt-2"
+            style={{ color: '#FFF5E5', fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 500 }}
+          >
+            {next.label} {fmt12(next.h, next.m)}
           </p>
         </div>
+      </div>
 
-        {/* Prayer Time Cards Grid */}
-        <div className="grid grid-cols-2 gap-4">
-          {prayerTimes.map(({ name, time, icon: Icon, label }) => (
-            <Card
-              key={name}
-              className="bg-primary text-primary-foreground p-4 rounded-2xl text-center"
+      {/* Essentials grid */}
+      <div className="px-5 pt-6">
+        <h2
+          className="text-[20px] mb-3"
+          style={{ color: BROWN, fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 700 }}
+        >
+          Essentials
+        </h2>
+        <div className="grid grid-cols-4 gap-2.5">
+          {essentials.map((e) => (
+            <button
+              key={e.label}
+              onClick={() => navigate(e.path)}
+              className="flex flex-col items-center justify-end pt-2 pb-2 rounded-2xl border transition-transform active:scale-95"
+              style={{
+                background: CREAM_CARD,
+                borderColor: 'rgba(232,213,196,0.86)',
+                height: 88,
+              }}
             >
-              <Icon className="h-8 w-8 mx-auto mb-2" />
-              <h3 className="font-bold text-lg">{name}</h3>
-              <p className="text-2xl font-bold">{time}</p>
-              <p className="text-xs opacity-90">{label}</p>
-            </Card>
+              {e.img ? (
+                <img src={e.img} alt={e.label} className="h-11 w-auto object-contain" />
+              ) : (
+                <div
+                  className="h-11 w-11 rounded-full flex items-center justify-center"
+                  style={{ background: 'linear-gradient(180deg, #C99063 0%, #8B4A22 100%)', color: '#FFF1DD' }}
+                >
+                  {e.icon && <e.icon className="h-5 w-5" strokeWidth={2} />}
+                </div>
+              )}
+              <span className="text-[10px] mt-1.5 text-center px-1" style={{ color: BROWN, fontWeight: 600 }}>
+                {e.label}
+              </span>
+            </button>
           ))}
         </div>
+      </div>
 
-        {/* Prayer Guidelines Section */}
-        <div className="space-y-4">
-          <div className="flex items-center gap-2 mb-4">
-            <BookOpen className="h-6 w-6 text-primary" />
-            <h2 className="text-xl font-bold text-primary">Prayer Guidelines</h2>
-          </div>
-          
-          <div className="space-y-3">
-            {prayerGuidelines.map((prayer) => {
-              const Icon = prayer.icon;
-              const isExpanded = expandedGuideline === prayer.name;
-              
-              return (
-                <Card
-                  key={prayer.name}
-                  className="bg-card border border-border rounded-2xl overflow-hidden"
+      {/* Daily Prayer Times */}
+      <div className="px-5 pt-6">
+        <div className="flex items-center justify-between mb-3">
+          <h2
+            className="text-[20px]"
+            style={{ color: BROWN, fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 700 }}
+          >
+            Daily Prayer Times
+          </h2>
+          <button className="flex items-center gap-1 text-[13px]" style={{ color: BROWN }}>
+            <MapPin className="h-4 w-4" strokeWidth={2} />
+            <span className="font-medium">{cityLabel}</span>
+            <ChevronDown className="h-3.5 w-3.5" strokeWidth={2} />
+          </button>
+        </div>
+
+        <div className="space-y-2.5">
+          {PRAYERS.map((p) => {
+            const isActive = p.key === next.key;
+            const isSunrise = p.key === 'sunrise';
+            const Icon = p.icon;
+            return (
+              <div
+                key={p.key}
+                className="flex items-center justify-between rounded-2xl px-5 py-3.5 border"
+                style={{
+                  background: CREAM_CARD,
+                  borderColor: isActive ? BROWN_ACCENT : 'rgba(232,213,196,0.7)',
+                  borderWidth: isActive ? 1.5 : 1,
+                }}
+              >
+                <span
+                  className="text-[18px]"
+                  style={{
+                    color: BROWN,
+                    fontWeight: 600,
+                    fontStyle: isSunrise ? 'italic' : 'normal',
+                    fontFamily: "'Plus Jakarta Sans', sans-serif",
+                  }}
                 >
-                  <button
-                    onClick={() => toggleGuideline(prayer.name)}
-                    className="w-full p-4 flex items-center justify-between hover:bg-muted/50 transition-colors"
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className="bg-primary/10 p-2 rounded-xl">
-                        <Icon className="h-5 w-5 text-primary" />
-                      </div>
-                      <div className="text-left">
-                        <h3 className="font-semibold text-foreground">{prayer.name}</h3>
-                        <p className="text-xs text-muted-foreground">
-                          {prayer.rakaat.map(r => `${r.count} ${r.type}`).join(' • ')}
-                        </p>
-                      </div>
-                    </div>
-                    {isExpanded ? (
-                      <ChevronUp className="h-5 w-5 text-muted-foreground" />
-                    ) : (
-                      <ChevronDown className="h-5 w-5 text-muted-foreground" />
-                    )}
-                  </button>
-                  
-                  {isExpanded && (
-                    <div className="px-4 pb-4 space-y-4 border-t border-border pt-4">
-                      {/* Time Window */}
-                      <div>
-                        <p className="text-xs font-medium text-muted-foreground uppercase mb-1">Time Window</p>
-                        <p className="text-sm text-foreground">{prayer.timeWindow}</p>
-                      </div>
-                      
-                      {/* Rakaat Breakdown */}
-                      <div>
-                        <p className="text-xs font-medium text-muted-foreground uppercase mb-2">Rakaat Breakdown</p>
-                        <div className="space-y-2">
-                          {prayer.rakaat.map((r, idx) => (
-                            <div key={idx} className="flex items-center justify-between bg-muted/30 rounded-lg px-3 py-2">
-                              <div className="flex items-center gap-2">
-                                <span className={`text-lg font-bold ${
-                                  r.type === 'Fard' ? 'text-primary' : 
-                                  r.type === 'Witr' ? 'text-amber-600' : 
-                                  'text-muted-foreground'
-                                }`}>
-                                  {r.count}
-                                </span>
-                                <span className="text-sm font-medium text-foreground">{r.type}</span>
-                              </div>
-                              <span className="text-xs text-muted-foreground">{r.note}</span>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                      
-                      {/* Additional Notes */}
-                      <div className="bg-primary/5 rounded-lg p-3">
-                        <p className="text-sm text-foreground leading-relaxed">{prayer.notes}</p>
-                      </div>
-                    </div>
-                  )}
-                </Card>
-              );
-            })}
-          </div>
-          
-          {/* General Guidelines Note */}
-          <Card className="bg-muted/30 border border-border p-4 rounded-2xl">
-            <p className="text-xs text-muted-foreground text-center leading-relaxed">
-              These guidelines follow general Sunni Islamic practices. For specific rulings, 
-              please consult with a qualified Islamic scholar or your local imam.
-            </p>
-          </Card>
+                  {p.label}
+                </span>
+                <div className="flex items-center gap-4">
+                  <span className="text-[16px] tabular-nums" style={{ color: BROWN, fontWeight: 500 }}>
+                    {fmt(p.h, p.m)}
+                  </span>
+                  <Icon className="h-5 w-5" style={{ color: BROWN }} strokeWidth={2} />
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
-    </Layout>
+
+      {/* Daily Wisdom */}
+      <div className="px-5 pt-5 pb-32">
+        <div className="rounded-2xl p-5" style={{ background: DAILY_GREEN }}>
+          <div className="flex items-start justify-between">
+            <Sparkles className="h-7 w-7" style={{ color: '#D4E5A8' }} strokeWidth={1.5} />
+            <span
+              className="text-[11px] tracking-[0.15em]"
+              style={{ color: '#E8F0D0', fontWeight: 600 }}
+            >
+              DAILY WISDOM
+            </span>
+          </div>
+          <p
+            className="mt-4 text-[18px] italic leading-snug"
+            style={{ color: '#FFF5E5', fontFamily: "'Amiri', serif" }}
+          >
+            "For indeed, with hardship [will be] ease."
+          </p>
+          <p
+            className="mt-3 text-[11px] tracking-[0.15em]"
+            style={{ color: '#C9D4A8', fontWeight: 700 }}
+          >
+            ASH-SHARH 94:5
+          </p>
+        </div>
+      </div>
+
+      <BottomNavigation />
+      <SideMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
+    </div>
   );
 };
