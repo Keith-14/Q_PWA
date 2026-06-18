@@ -105,7 +105,7 @@ export const Home = () => {
 
   const quickActions = [
     { label: 'Quran', img: qaQuranAsset.url, onClick: () => navigate('/quran') },
-    { label: 'Islamic AI', img: qaAi, onClick: () => setIsChatOpen(true) },
+    { label: 'Islamic AI', img: qaAiAsset.url, onClick: () => setIsChatOpen(true) },
     { label: 'Places', img: qaPlaces, onClick: () => navigate('/places') },
     { label: 'Hajj Packages', img: qaHajj, onClick: () => navigate('/hajj') },
   ];
