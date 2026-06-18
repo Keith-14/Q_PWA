@@ -1,7 +1,8 @@
 import navHomeIcon from '@/assets/nav-home-icon.png.asset.json';
 import navMarketplaceIcon from '@/assets/nav-marketplace-icon.png.asset.json';
 import navPrayerIcon from '@/assets/nav-prayer-icon.png.asset.json';
-import { ScanLine, MessageSquare } from 'lucide-react';
+import navChatIcon from '@/assets/nav-chat-icon.png.asset.json';
+import { ScanLine } from 'lucide-react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 
