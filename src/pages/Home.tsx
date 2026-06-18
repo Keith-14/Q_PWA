@@ -114,11 +114,12 @@ export const Home = () => {
   return (
     <div
       className="min-h-screen max-w-md mx-auto relative overflow-hidden"
-      style={{ background: 'linear-gradient(180deg, #78351A 0%, #CE5728 28%, #D97A4A 50%, #E8A87C 72%, #FFE4B9 88%, #FFF5E5 100%)' }}
+      style={{ background: '#FFF5E5' }}
     >
       {/* HERO — brown gradient top section */}
       <div
-        className="relative pt-4 pb-10 overflow-hidden"
+        className="relative pt-4 pb-16 overflow-hidden"
+        style={{ background: 'linear-gradient(177deg, #78351A 2.14%, #CE5728 60%, #D97A4A 85%, #E8A87C 100%)' }}
       >
         {/* soft radial glows */}
         <div
