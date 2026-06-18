@@ -9,6 +9,8 @@ import { supabase } from '@/integrations/supabase/client';
 import { toast } from '@/hooks/use-toast';
 import navHomeIcon from '@/assets/nav-home-icon.png.asset.json';
 import navMarketplaceIcon from '@/assets/nav-marketplace-icon.png.asset.json';
+import navPrayerIcon from '@/assets/nav-prayer-icon.png.asset.json';
+import navMarketplaceIcon from '@/assets/nav-marketplace-icon.png.asset.json';
 
 type NewsCategory = 'all' | 'world' | 'education' | 'community' | 'charity' | 'business' | 'politics';
 
