@@ -9,7 +9,7 @@ import { SideMenu } from '@/components/SideMenu';
 import prayerIcon from '@/assets/prayer-icon.png.asset.json';
 import qaQuranAsset from '@/assets/qa-quran-new.png.asset.json';
 import qaAiAsset from '@/assets/qa-ai-new.png.asset.json';
-import qaPlaces from '@/assets/qa-places.png';
+import qaPlacesAsset from '@/assets/qa-places-new.png.asset.json';
 import qaHajj from '@/assets/qa-hajj.png';
 
 interface NewsItem {
@@ -106,7 +106,7 @@ export const Home = () => {
   const quickActions = [
     { label: 'Quran', img: qaQuranAsset.url, onClick: () => navigate('/quran') },
     { label: 'Islamic AI', img: qaAiAsset.url, onClick: () => setIsChatOpen(true) },
-    { label: 'Places', img: qaPlaces, onClick: () => navigate('/places') },
+    { label: 'Places', img: qaPlacesAsset.url, onClick: () => navigate('/places') },
     { label: 'Hajj Packages', img: qaHajj, onClick: () => navigate('/hajj') },
   ];
 
