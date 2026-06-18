@@ -191,7 +191,7 @@ export const ZakatResult = () => {
                 <p className="text-sm leading-relaxed" style={{ color: '#2B5E2B', opacity: 0.9 }}>
                   {isNisabMet
                     ? `Your total wealth of ${fmt(total, symbol)} exceeds the Nisab threshold of ${fmt(nisab, symbol)}. You are required to pay 2.5% of your zakatable wealth (${fmt(zakatable, symbol)}) as Zakat, which equals ${fmt(zakatPayable, symbol)}.`
-                    : `Your total wealth of ${fmt(total, symbol)} is below the Nisab threshold of ${fmt(nisab, symbol}). You are not required to pay Zakat this year. Consider revisiting when your wealth grows.`}
+                    : `Your total wealth of ${fmt(total, symbol)} is below the Nisab threshold of ${fmt(nisab, symbol)}. You are not required to pay Zakat this year. Consider revisiting when your wealth grows.`}
                 </p>
               </div>
             </div>
