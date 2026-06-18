@@ -205,10 +205,10 @@ export const Home = () => {
               style={{
                 background: '#FFF5E5',
                 borderColor: 'rgba(232,213,196,0.86)',
-                height: 90,
+                height: 104,
               }}
             >
-              <img src={a.img} alt={a.label} className="h-12 w-auto object-contain" />
+              <img src={a.img} alt={a.label} className="h-14 w-auto object-contain" />
               <span
                 className="text-[10px] mt-1"
                 style={{ color: '#55433D', fontWeight: 500 }}
