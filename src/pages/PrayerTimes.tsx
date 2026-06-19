@@ -271,6 +271,7 @@ export const PrayerTimes = () => {
           </p>
         </div>
       </div>
+      </div>
 
       <BottomNavigation />
       <SideMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
