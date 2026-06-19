@@ -24,7 +24,7 @@ interface SideMenuProps {
   onClose: () => void;
 }
 
-const CREAM = '#FFF5E5';
+const CREAM = '#FFF8F3';
 const BROWN = '#2C1309';
 const BROWN_ACCENT = '#5A2A18';
 const BADGE_BROWN = '#4A2418';
