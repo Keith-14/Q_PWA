@@ -47,14 +47,14 @@ export const PrayerOverviewCard = ({
     <Card className="relative overflow-hidden glass-dark p-4 shine-effect">
       {/* Subtle gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent pointer-events-none" />
-      <div className="absolute top-0 right-0 w-32 h-32 bg-[radial-gradient(circle_at_top_right,hsl(145_70%_45%/0.1),transparent_60%)] pointer-events-none" />
+      <div className="absolute top-0 right-0 w-32 h-32 bg-[radial-gradient(circle_at_top_right,hsl(17_70%_45%/0.1),transparent_60%)] pointer-events-none" />
       
       <div className="relative z-10 flex items-start justify-between gap-4">
         <div>
           <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-primary/80">
             {t('home.next_prayer')}
           </p>
-          <p className="mt-1 text-2xl font-bold tracking-tight text-emerald-gradient">
+          <p className="mt-1 text-2xl font-bold tracking-tight text-brown-gradient">
             {getDisplayPrayerName()}
           </p>
           <p className="mt-1 text-xs text-muted-foreground max-w-[180px] leading-relaxed">
@@ -65,10 +65,10 @@ export const PrayerOverviewCard = ({
         <div className="text-right flex items-start gap-2">
           <div className="relative">
             <div className="absolute inset-0 bg-primary/20 rounded-full blur-xl" />
-            <Moon className="h-10 w-10 text-primary relative z-10 float drop-shadow-[0_0_10px_hsl(145_70%_45%/0.4)]" strokeWidth={1} fill="hsl(145 70% 45% / 0.1)" />
+            <Moon className="h-10 w-10 text-primary relative z-10 float drop-shadow-[0_0_10px_hsl(17_70%_45%/0.4)]" strokeWidth={1} fill="hsl(17 70% 45% / 0.1)" />
           </div>
           <div>
-            <p className="text-3xl font-bold tabular-nums tracking-tight text-emerald-gradient drop-shadow-[0_0_15px_hsl(145_70%_45%/0.25)]">
+            <p className="text-3xl font-bold tabular-nums tracking-tight text-brown-gradient drop-shadow-[0_0_15px_hsl(17_70%_45%/0.25)]">
               {currentTime || "--:--:--"}
             </p>
           </div>
@@ -84,12 +84,12 @@ export const PrayerOverviewCard = ({
           preserveAspectRatio="none"
         >
           <defs>
-            <linearGradient id="lineGradientEmerald" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="hsl(145 70% 45% / 0.15)" />
-              <stop offset="50%" stopColor="hsl(145 70% 45% / 0.5)" />
-              <stop offset="100%" stopColor="hsl(145 70% 45% / 0.15)" />
+            <linearGradient id="lineGradientBrown" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="hsl(17 70% 45% / 0.15)" />
+              <stop offset="50%" stopColor="hsl(17 70% 45% / 0.5)" />
+              <stop offset="100%" stopColor="hsl(17 70% 45% / 0.15)" />
             </linearGradient>
-            <filter id="glowEmerald">
+            <filter id="glowBrown">
               <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
               <feMerge>
                 <feMergeNode in="coloredBlur"/>
@@ -100,9 +100,9 @@ export const PrayerOverviewCard = ({
           <path
             d="M 10 45 Q 80 8, 160 8 Q 240 8, 310 45"
             fill="none"
-            stroke="url(#lineGradientEmerald)"
+            stroke="url(#lineGradientBrown)"
             strokeWidth="2"
-            filter="url(#glowEmerald)"
+            filter="url(#glowBrown)"
           />
           {/* Dots on curve */}
           {PRAYER_NAMES.map((_, index) => {
@@ -115,8 +115,8 @@ export const PrayerOverviewCard = ({
                 cx={x}
                 cy={y}
                 r={isActivePrayer ? 7 : 4}
-                fill={isActivePrayer ? "hsl(145 70% 45%)" : "hsl(145 70% 45% / 0.25)"}
-                filter={isActivePrayer ? "url(#glowEmerald)" : undefined}
+                fill={isActivePrayer ? "hsl(17 70% 45%)" : "hsl(17 70% 45% / 0.25)"}
+                filter={isActivePrayer ? "url(#glowBrown)" : undefined}
               />
             );
           })}

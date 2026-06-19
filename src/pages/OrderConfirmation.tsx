@@ -24,7 +24,7 @@ export const OrderConfirmation = () => {
       {/* Top spacer for status bar safe area feel */}
       <div className="pt-16" />
 
-      {/* Green check circle */}
+      {/* Brown check circle */}
       <div
         className="h-24 w-24 rounded-full flex items-center justify-center shadow-lg"
         style={{ backgroundColor: OLIVE }}
