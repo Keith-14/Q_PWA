@@ -1,8 +1,9 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { ArrowLeft, HelpCircle, Mic, Send, Sparkles, ArrowUpRight } from 'lucide-react';
+import { ArrowLeft, HelpCircle, Mic, Send, ArrowUpRight } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useLanguage } from '@/contexts/LanguageContext';
 import ReactMarkdown from 'react-markdown';
+import aiAssistantLogo from '@/assets/ai-assistant-logo.png.asset.json';
 
 type Msg = { role: 'user' | 'assistant'; content: string };
 
@@ -167,17 +168,12 @@ export const ChatAssistant = ({ open, onClose }: ChatAssistantProps) => {
 };
 
 const Logo = ({ size = 32 }: { size?: number }) => (
-  <div
-    className="rounded-full flex items-center justify-center shrink-0"
-    style={{ width: size, height: size, backgroundColor: BROWN_BTN }}
-  >
-    <Sparkles
-      className="text-white"
-      style={{ width: size * 0.55, height: size * 0.55 }}
-      strokeWidth={2.25}
-      fill="white"
-    />
-  </div>
+  <img
+    src={aiAssistantLogo.url}
+    alt="Islamic AI Assistant"
+    className="rounded-full shrink-0 object-cover"
+    style={{ width: size, height: size }}
+  />
 );
 
 /* ---------------- Chat View ---------------- */
