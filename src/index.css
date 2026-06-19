@@ -132,23 +132,23 @@ All colors MUST be HSL.
 
 @keyframes pulse-glow {
   0%, 100% { 
-    box-shadow: 0 0 20px -5px hsl(145 70% 45% / 0.3);
+    box-shadow: 0 0 20px -5px hsl(17 70% 45% / 0.3);
     opacity: 1;
   }
   50% { 
-    box-shadow: 0 0 35px -5px hsl(145 70% 45% / 0.5);
+    box-shadow: 0 0 35px -5px hsl(17 70% 45% / 0.5);
     opacity: 0.9;
   }
 }
 
 @keyframes border-glow {
   0%, 100% { 
-    border-color: hsl(145 70% 45% / 0.2);
-    box-shadow: inset 0 0 20px hsl(145 70% 45% / 0.03);
+    border-color: hsl(17 70% 45% / 0.2);
+    box-shadow: inset 0 0 20px hsl(17 70% 45% / 0.03);
   }
   50% { 
-    border-color: hsl(145 70% 45% / 0.4);
-    box-shadow: inset 0 0 30px hsl(145 70% 45% / 0.06);
+    border-color: hsl(17 70% 45% / 0.4);
+    box-shadow: inset 0 0 30px hsl(17 70% 45% / 0.06);
   }
 }
 
@@ -177,12 +177,12 @@ All colors MUST be HSL.
   }
   
   /* Premium glow effects */
-  .glow-emerald {
-    box-shadow: 0 0 30px -5px hsl(145 70% 45% / 0.4);
+  .glow-brown {
+    box-shadow: 0 0 30px -5px hsl(17 70% 45% / 0.4);
   }
   
   .glow-soft {
-    box-shadow: 0 0 40px -8px hsl(145 70% 45% / 0.25);
+    box-shadow: 0 0 40px -8px hsl(17 70% 45% / 0.25);
   }
   
   .glow-pulse {
@@ -198,7 +198,7 @@ All colors MUST be HSL.
     background: linear-gradient(
       90deg,
       transparent 0%,
-      hsl(145 70% 55% / 0.08) 50%,
+      hsl(17 70% 55% / 0.08) 50%,
       transparent 100%
     );
     background-size: 200% 100%;
@@ -221,7 +221,7 @@ All colors MUST be HSL.
     background: linear-gradient(
       90deg,
       transparent,
-      hsl(145 70% 55% / 0.05),
+      hsl(17 70% 55% / 0.05),
       transparent
     );
     animation: shine-sweep 6s ease-in-out infinite;
@@ -233,9 +233,9 @@ All colors MUST be HSL.
     animation: float 4s ease-in-out infinite;
   }
   
-  /* Gradient text - Emerald */
-  .text-emerald-gradient {
-    background: linear-gradient(135deg, hsl(145 60% 55%), hsl(145 70% 45%), hsl(145 80% 35%));
+  /* Gradient text - Brown */
+  .text-brown-gradient {
+    background: linear-gradient(135deg, hsl(17 60% 55%), hsl(17 70% 45%), hsl(17 80% 35%));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -245,13 +245,13 @@ All colors MUST be HSL.
   .glass {
     background: hsl(0 0% 7% / 0.8);
     backdrop-filter: blur(20px);
-    border: 1px solid hsl(145 70% 45% / 0.1);
+    border: 1px solid hsl(17 70% 45% / 0.1);
   }
   
   .glass-dark {
     background: linear-gradient(135deg, hsl(0 0% 9% / 0.9), hsl(0 0% 5% / 0.95));
     backdrop-filter: blur(20px);
-    border: 1px solid hsl(145 70% 45% / 0.15);
+    border: 1px solid hsl(17 70% 45% / 0.15);
     box-shadow: 
       0 8px 32px hsl(0 0% 0% / 0.4),
       inset 0 1px 0 hsl(0 0% 100% / 0.03);
@@ -261,19 +261,19 @@ All colors MUST be HSL.
   .glass-footer {
     background: linear-gradient(
       135deg,
-      hsl(180 20% 10% / 0.45),
-      hsl(160 15% 8% / 0.5),
-      hsl(180 20% 10% / 0.45)
+      hsl(20 20% 10% / 0.45),
+      hsl(15 15% 8% / 0.5),
+      hsl(20 20% 10% / 0.45)
     );
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
-    border: 1px solid hsl(180 30% 40% / 0.15);
+    border: 1px solid hsl(20 30% 40% / 0.15);
     box-shadow: 
       0 -4px 30px hsl(0 0% 0% / 0.3),
       0 8px 32px hsl(0 0% 0% / 0.4),
-      inset 0 1px 0 hsl(180 40% 60% / 0.08),
+      inset 0 1px 0 hsl(20 40% 60% / 0.08),
       inset 0 -1px 0 hsl(0 0% 0% / 0.2),
-      0 0 0 1px hsl(180 25% 35% / 0.1);
+      0 0 0 1px hsl(20 25% 35% / 0.1);
     position: relative;
     overflow: hidden;
   }
@@ -288,9 +288,9 @@ All colors MUST be HSL.
     background: linear-gradient(
       90deg,
       transparent,
-      hsl(180 40% 50% / 0.3),
-      hsl(160 50% 45% / 0.4),
-      hsl(180 40% 50% / 0.3),
+      hsl(20 40% 50% / 0.3),
+      hsl(15 50% 45% / 0.4),
+      hsl(20 40% 50% / 0.3),
       transparent
     );
   }
@@ -301,7 +301,7 @@ All colors MUST be HSL.
     inset: 0;
     background: radial-gradient(
       ellipse at 50% 0%,
-      hsl(180 30% 50% / 0.05),
+      hsl(20 30% 50% / 0.05),
       transparent 60%
     );
     pointer-events: none;
@@ -314,7 +314,7 @@ All colors MUST be HSL.
   
   .hover-lift:hover {
     transform: translateY(-4px);
-    box-shadow: 0 12px 40px -8px hsl(145 70% 45% / 0.25);
+    box-shadow: 0 12px 40px -8px hsl(17 70% 45% / 0.25);
   }
   
   .hover-scale {
@@ -351,8 +351,8 @@ All colors MUST be HSL.
     transform: translateY(-3px);
     box-shadow: 
       0 15px 40px -10px hsl(0 0% 0% / 0.6),
-      0 0 30px -5px hsl(145 70% 45% / 0.15);
-    border-color: hsl(145 70% 45% / 0.3);
+      0 0 30px -5px hsl(17 70% 45% / 0.15);
+    border-color: hsl(17 70% 45% / 0.3);
   }
   
   .card-interactive:active {
@@ -380,7 +380,7 @@ All colors MUST be HSL.
     content: '';
     position: absolute;
     inset: -2px;
-    background: linear-gradient(135deg, hsl(145 70% 50%), hsl(145 80% 35%));
+    background: linear-gradient(135deg, hsl(17 70% 50%), hsl(17 80% 35%));
     border-radius: inherit;
     opacity: 0;
     transition: opacity 300ms ease;
