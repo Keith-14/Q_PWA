@@ -30,23 +30,25 @@ export const LanguageSelector = () => {
         <Button
           variant="outline"
           size="sm"
-          className="gap-2 rounded-xl bg-foreground/95 border-primary/25 text-primary hover:bg-foreground hover:text-primary"
+          className="gap-2 rounded-xl border-[#A35233]/25 text-[#A35233] hover:bg-[#FFF5E5] hover:text-[#A35233]"
+          style={{ backgroundColor: 'rgba(163, 82, 51, 0.08)' }}
         >
-          <Globe className="h-4 w-4 text-primary" />
-          <span className="text-sm font-medium text-primary">{currentLang?.nativeLabel}</span>
+          <Globe className="h-4 w-4" style={{ color: '#A35233' }} />
+          <span className="text-sm font-medium" style={{ color: '#A35233' }}>{currentLang?.nativeLabel}</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent 
         align="center" 
-        className="w-48 rounded-xl border border-border bg-popover text-primary shadow-lg"
+        className="w-48 rounded-xl border border-[#E8D2A8] bg-[#FFF8F3] shadow-lg"
       >
         {languages.map((lang) => (
           <DropdownMenuItem
             key={lang.code}
             onClick={() => setLanguage(lang.code)}
-            className={`flex items-center justify-between px-4 py-3 cursor-pointer rounded-lg text-primary focus:bg-primary/10 focus:text-primary hover:bg-primary/5 hover:text-primary ${
-              language === lang.code ? 'bg-primary/15 font-semibold' : ''
+            className={`flex items-center justify-between px-4 py-3 cursor-pointer rounded-lg focus:bg-[#A35233]/10 focus:text-[#2C1309] hover:bg-[#A35233]/5 hover:text-[#2C1309] ${
+              language === lang.code ? 'bg-[#A35233]/15 font-semibold' : ''
             }`}
+            style={{ color: '#2C1309' }}
           >
             <span className="font-medium">{lang.nativeLabel}</span>
             <span className="text-xs opacity-70">{lang.label}</span>

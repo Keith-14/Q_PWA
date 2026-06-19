@@ -23,7 +23,7 @@ const CREAM = '#FFF5E5';
 const CREAM_SOFT = '#FFF5E5';
 const BROWN = '#A35233';
 const BROWN_DARK = '#5C2A14';
-const GREEN = '#3F6B3A';
+const ACCENT_BROWN = '#B54A22';
 
 export const Shop = () => {
   const { addToCart, getTotalItems } = useCart();
@@ -159,7 +159,7 @@ export const Shop = () => {
               />
             </div>
             <div className="flex items-center justify-center gap-1.5 mt-3">
-              <span className="h-1.5 w-6 rounded-full" style={{ backgroundColor: GREEN }} />
+              <span className="h-1.5 w-6 rounded-full" style={{ backgroundColor: ACCENT_BROWN }} />
               <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: '#D9C4A4' }} />
               <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: '#D9C4A4' }} />
             </div>
@@ -181,7 +181,7 @@ export const Shop = () => {
                 {topPicks.map((product, idx) => {
                   const isNew = idx === 0;
                   const isSustainable = idx === 1;
-                  const badge = isNew ? { label: 'NEW ARRIVAL', color: BROWN } : isSustainable ? { label: 'SUSTAINABLE', color: GREEN } : { label: 'ARTISANAL SELECTION', color: BROWN };
+                  const badge = isNew ? { label: 'NEW ARRIVAL', color: BROWN } : isSustainable ? { label: 'SUSTAINABLE', color: ACCENT_BROWN } : { label: 'ARTISANAL SELECTION', color: BROWN };
                   const fav = favorites.has(product.id);
                   return (
                     <div
