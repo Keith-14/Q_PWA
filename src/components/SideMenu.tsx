@@ -143,7 +143,7 @@ export const SideMenu = ({ isOpen, onClose }: SideMenuProps) => {
             </div>
             <span
               className="absolute bottom-0 right-1 w-3.5 h-3.5 rounded-full"
-              style={{ background: '#2E7D32', border: `2px solid ${CREAM}` }}
+              style={{ background: '#B54A22', border: `2px solid ${CREAM}` }}
             />
           </div>
 

@@ -5,7 +5,7 @@ import { ArrowRight, Check } from 'lucide-react';
 const CREAM = '#FFF5E5';
 const BROWN = '#A35233';
 const BROWN_DARK = '#5C2A14';
-const OLIVE = '#6B7C3E';
+const OLIVE = '#A35233';
 
 export const OrderConfirmation = () => {
   const { orderId } = useParams<{ orderId: string }>();
@@ -24,7 +24,7 @@ export const OrderConfirmation = () => {
       {/* Top spacer for status bar safe area feel */}
       <div className="pt-16" />
 
-      {/* Green check circle */}
+      {/* Brown check circle */}
       <div
         className="h-24 w-24 rounded-full flex items-center justify-center shadow-lg"
         style={{ backgroundColor: OLIVE }}

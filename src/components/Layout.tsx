@@ -42,21 +42,21 @@ export const Layout = ({ children, showNavigation = true, showHeader = true, hea
 
   return (
     <div className="min-h-screen bg-background flex flex-col max-w-md mx-auto relative overflow-hidden font-arabic">
-      {/* Background with sage green tint #6a8b74 */}
+      {/* Background with warm brown tint */}
       <div className="fixed inset-0 pointer-events-none">
-        {/* Dark green-tinted base */}
+        {/* Dark brown-tinted base */}
         <div 
           className="absolute inset-0"
           style={{ 
-            background: 'linear-gradient(180deg, rgba(40, 55, 45, 1) 0%, rgba(25, 35, 28, 1) 50%, rgba(15, 20, 16, 1) 100%)' 
+            background: 'linear-gradient(180deg, rgba(45, 25, 15, 1) 0%, rgba(25, 15, 10, 1) 50%, rgba(15, 10, 8, 1) 100%)' 
           }}
         />
         
-        {/* Sage green overlay for the tint */}
+        {/* Warm brown overlay for the tint */}
         <div 
           className="absolute inset-0"
           style={{ 
-            background: 'rgba(106, 139, 116, 0.08)' 
+            background: 'rgba(139, 90, 43, 0.08)' 
           }}
         />
         
@@ -64,7 +64,7 @@ export const Layout = ({ children, showNavigation = true, showHeader = true, hea
         <div 
           className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[50%]"
           style={{ 
-            background: 'radial-gradient(ellipse at top, rgba(106, 139, 116, 0.15) 0%, transparent 70%)' 
+            background: 'radial-gradient(ellipse at top, rgba(163, 82, 51, 0.15) 0%, transparent 70%)' 
           }}
         />
       </div>
