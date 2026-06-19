@@ -1,10 +1,11 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { ArrowLeft, Mic, Send, ArrowUpRight } from 'lucide-react';
+import { ArrowLeft, Mic, ArrowUpRight } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useLanguage } from '@/contexts/LanguageContext';
 import ReactMarkdown from 'react-markdown';
 import aiAssistantLogo from '@/assets/ai-assistant-logo.png.asset.json';
 import aiHelpIcon from '@/assets/ai-help-icon.png.asset.json';
+import aiSendIcon from '@/assets/ai-send-icon.png.asset.json';
 
 type Msg = { role: 'user' | 'assistant'; content: string };
 
@@ -353,11 +354,15 @@ const ChatView = ({
         <button
           onClick={send}
           disabled={!input.trim() || isLoading}
-          className="h-12 w-12 rounded-full flex items-center justify-center shadow-sm disabled:opacity-50"
-          style={{ backgroundColor: BROWN_BTN }}
+          className="h-12 w-12 rounded-full flex items-center justify-center shadow-sm disabled:opacity-50 overflow-hidden"
+          style={{ backgroundColor: 'transparent' }}
           aria-label="Send"
         >
-          <Send className="h-5 w-5 text-white -ml-0.5" strokeWidth={2} />
+          <img
+            src={aiSendIcon.url}
+            alt="Send"
+            className="h-full w-full object-cover"
+          />
         </button>
       </div>
     </>
