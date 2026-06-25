@@ -4,15 +4,15 @@ import { Menu, Bell, MapPin, ChevronDown, Sun, Sunrise, Sunset, Moon, Cloud, Clo
 import { SideMenu } from '@/components/SideMenu';
 import { BottomNavigation } from '@/components/BottomNavigation';
 import { useGlobalLocation } from '@/contexts/LocationContext';
-import prayerArcLogo from '@/assets/prayer-arc-logo.png.asset.json';
-import hadithIcon from '@/assets/hadith-icon-v2.png.asset.json';
-import quranIcon from '@/assets/quran-icon.png.asset.json';
-import hajjIcon from '@/assets/hajj-icon.png.asset.json';
-import placesIcon from '@/assets/places-icon.png.asset.json';
-import zakatIcon from '@/assets/zakat-icon.png.asset.json';
-import moodTrackerIcon from '@/assets/mood-tracker-icon.png.asset.json';
-import qiblaIcon from '@/assets/qibla-icon.png.asset.json';
-import prayerMarkIcon from '@/assets/prayer-mark-icon.png.asset.json';
+import prayerArcLogo from '@/assets/prayer-arc-logo.png';
+import hadithIcon from '@/assets/hadith-icon-v2.png';
+import quranIcon from '@/assets/qa-quran.png';
+import hajjIcon from '@/assets/hajj-icon.png';
+import placesIcon from '@/assets/places-icon.png';
+import zakatIcon from '@/assets/zakat-icon.png';
+import moodTrackerIcon from '@/assets/mood-tracker-icon.png';
+import qiblaIcon from '@/assets/qibla-icon.png';
+import prayerMarkIcon from '@/assets/prayer-mark-icon.png';
 
 const CREAM = '#FFF5E5';
 const CREAM_CARD = '#FFF5E5';
@@ -42,14 +42,14 @@ const fmt12 = (h: number, m: number) => {
 };
 
 const essentials = [
-  { label: 'Hadith', img: hadithIcon.url, icon: null, path: '/quran' },
-  { label: 'Quran', img: quranIcon.url, icon: null, path: '/quran' },
-  { label: 'Hajj Packages', img: hajjIcon.url, icon: null, path: '/hajj' },
-  { label: 'Places', img: placesIcon.url, icon: null, path: '/places' },
-  { label: 'Zakat Calc.', img: zakatIcon.url, icon: null, path: '/zakat' },
-  { label: 'Mood Tracker', img: moodTrackerIcon.url, icon: null, path: '/mood' },
-  { label: 'Qibla', img: qiblaIcon.url, icon: null, path: '/qibla' },
-  { label: 'Prayer Mark', img: prayerMarkIcon.url, icon: null, path: '/progress' },
+  { label: 'Hadith', img: hadithIcon, icon: null, path: '/quran' },
+  { label: 'Quran', img: quranIcon, icon: null, path: '/quran' },
+  { label: 'Hajj Packages', img: hajjIcon, icon: null, path: '/hajj' },
+  { label: 'Places', img: placesIcon, icon: null, path: '/places' },
+  { label: 'Zakat Calc.', img: zakatIcon, icon: null, path: '/zakat' },
+  { label: 'Mood Tracker', img: moodTrackerIcon, icon: null, path: '/mood' },
+  { label: 'Qibla', img: qiblaIcon, icon: null, path: '/qibla' },
+  { label: 'Prayer Mark', img: prayerMarkIcon, icon: null, path: '/progress' },
 ];
 
 
@@ -121,7 +121,7 @@ export const PrayerTimes = () => {
         {/* Arc + Logo image */}
         <div className="absolute inset-x-0 top-3 flex justify-center">
           <img
-            src={prayerArcLogo.url}
+            src={prayerArcLogo}
             alt="Barakah"
             className="w-full max-w-[300px] object-contain"
             style={{ height: 150 }}

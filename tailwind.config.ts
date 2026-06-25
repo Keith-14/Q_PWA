@@ -57,6 +57,7 @@ export default {
 					foreground: 'hsl(var(--card-foreground))'
 				},
 				cream: '#FFF5E5',
+				sage: '#2D3E35',
 				emerald: {
 					DEFAULT: 'hsl(var(--emerald))',
 					light: 'hsl(var(--emerald-light))',

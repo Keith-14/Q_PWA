@@ -8,10 +8,10 @@ export const LoadingScreen = () => {
 
   useEffect(() => {
     // GIF duration ~1850ms — freeze on last frame after one play
-    const freezeTimer = setTimeout(() => setFrozen(true), 1850);
+    const freezeTimer = setTimeout(() => setFrozen(true), 3850);
     const navTimer = setTimeout(() => {
       navigate('/onboarding');
-    }, 2600);
+    }, 4600);
     return () => {
       clearTimeout(freezeTimer);
       clearTimeout(navTimer);
@@ -19,7 +19,7 @@ export const LoadingScreen = () => {
   }, [navigate]);
 
   return (
-    <div className="min-h-screen max-w-md mx-auto relative overflow-hidden flex items-center justify-center" style={{ backgroundColor: '#fbf1dd' }}>
+    <div className="min-h-screen max-w-md mx-auto relative overflow-hidden flex items-center justify-center" style={{ backgroundColor: '#fff5e5' }}>
       {/* Centered animated logo */}
       <img
         src={frozen ? splashLastFrame : 'https://ik.imagekit.io/i9qun1svg/30%20fps%20.gif'}

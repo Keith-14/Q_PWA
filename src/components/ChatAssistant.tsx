@@ -3,8 +3,8 @@ import { ArrowLeft, Mic, ArrowUpRight, HelpCircle } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useLanguage } from '@/contexts/LanguageContext';
 import ReactMarkdown from 'react-markdown';
-import aiAssistantLogo from '@/assets/ai-assistant-logo.png.asset.json';
-import aiSendBtn from '@/assets/ai-send-btn.png.asset.json';
+import aiAssistantLogo from '@/assets/ai-assistant-logo.png';
+import aiSendBtn from '@/assets/ai-send-btn.png';
 
 type Msg = { role: 'user' | 'assistant'; content: string };
 
@@ -170,7 +170,7 @@ export const ChatAssistant = ({ open, onClose }: ChatAssistantProps) => {
 
 const Logo = ({ size = 32 }: { size?: number }) => (
   <img
-    src={aiAssistantLogo.url}
+    src={aiAssistantLogo}
     alt="Islamic AI Assistant"
     className="rounded-full shrink-0 object-cover"
     style={{ width: size, height: size }}
@@ -354,7 +354,7 @@ const ChatView = ({
           aria-label="Send"
         >
           <img
-            src={aiSendBtn.url}
+            src={aiSendBtn}
             alt="Send"
             className="h-full w-full object-cover"
           />

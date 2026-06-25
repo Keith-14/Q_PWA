@@ -104,7 +104,7 @@ export const Zakat = () => {
         {/* Header */}
         <div className="px-5 pt-5 pb-3 flex items-center justify-between" style={{ backgroundColor: CREAM }}>
           <button
-            onClick={() => navigate(-1)}
+            onClick={() => navigate('/prayer-times')}
             className="h-9 w-9 flex items-center justify-center"
             style={{ color: BROWN_DARK }}
             aria-label="Back"

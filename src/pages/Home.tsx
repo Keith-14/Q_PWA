@@ -7,11 +7,11 @@ import { supabase } from '@/integrations/supabase/client';
 import { ChatAssistant } from '@/components/ChatAssistant';
 import { SideMenu } from '@/components/SideMenu';
 import { BottomNavigation } from '@/components/BottomNavigation';
-import qaQuranAsset from '@/assets/qa-quran-new.png.asset.json';
-import qaAiAsset from '@/assets/qa-ai-new.png.asset.json';
-import qaPlacesAsset from '@/assets/qa-places-new.png.asset.json';
-import qaHajjAsset from '@/assets/qa-hajj-new.png.asset.json';
-import barakahArcLogo from '@/assets/barakah-arc-logo.png.asset.json';
+import qaQuranAsset from '@/assets/quran-icon.png';
+import qaAiAsset from '@/assets/qa-ai-new.png';
+import qaPlacesAsset from '@/assets/places-icon.png';
+import qaHajjAsset from '@/assets/hajj-icon.png';
+import barakahArcLogo from '@/assets/barakah-arc-logo.png';
 
 interface NewsItem {
   id: string;
@@ -105,10 +105,10 @@ export const Home = () => {
   const cityLabel = location?.city || 'Dubai';
 
   const quickActions = [
-    { label: 'Quran', img: qaQuranAsset.url, onClick: () => navigate('/quran') },
-    { label: 'Islamic AI', img: qaAiAsset.url, onClick: () => setIsChatOpen(true) },
-    { label: 'Places', img: qaPlacesAsset.url, onClick: () => navigate('/places') },
-    { label: 'Hajj Packages', img: qaHajjAsset.url, onClick: () => navigate('/hajj') },
+    { label: 'Quran', img: qaQuranAsset, onClick: () => navigate('/quran') },
+    { label: 'Islamic AI', img: qaAiAsset, onClick: () => setIsChatOpen(true) },
+    { label: 'Places', img: qaPlacesAsset, onClick: () => navigate('/places') },
+    { label: 'Hajj Packages', img: qaHajjAsset, onClick: () => navigate('/hajj') },
   ];
 
   return (
@@ -368,7 +368,7 @@ const ArcTimeline = ({
     <div className="relative h-[230px] mt-4">
       {/* Arc + Logo image */}
       <img
-        src={barakahArcLogo.url}
+        src={barakahArcLogo}
         alt="Barakah"
         className="absolute left-1/2 -translate-x-1/2 top-0 w-[280px] h-auto"
       />

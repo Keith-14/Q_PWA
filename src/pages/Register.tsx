@@ -9,7 +9,7 @@ import { Card } from '@/components/ui/card';
 import { LanguageSelector } from '@/components/LanguageSelector';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { BarakahLogo } from '@/components/BarakahLogo';
-import loginBg from '@/assets/login-bg.png.asset.json';
+import loginBg from '@/assets/login-bg.png';
 
 type UserRole = 'normal_user' | 'seller' | 'travel_partner';
 
@@ -178,7 +178,7 @@ export const Register = () => {
       <div
         className="relative h-[42vh] min-h-[300px] w-full"
         style={{
-          backgroundImage: `linear-gradient(180deg, rgba(255,241,221,0) 70%, #FFF5E5 100%), url(${loginBg.url})`,
+          backgroundImage: `linear-gradient(180deg, rgba(255,241,221,0) 70%, #FFF5E5 100%), url(${loginBg})`,
           backgroundSize: 'cover, cover',
           backgroundPosition: 'center top, center top',
           backgroundRepeat: 'no-repeat, no-repeat',

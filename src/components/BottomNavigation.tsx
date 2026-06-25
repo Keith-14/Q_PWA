@@ -1,7 +1,7 @@
-import navHomeIcon from '@/assets/nav-home-icon.png.asset.json';
-import navMarketplaceIcon from '@/assets/nav-marketplace-icon.png.asset.json';
-import navPrayerIcon from '@/assets/nav-prayer-icon.png.asset.json';
-import navChatIcon from '@/assets/nav-chat-icon.png.asset.json';
+import navHomeIcon from '@/assets/home_navbar.png';
+import navMarketplaceIcon from '@/assets/cart_navbar.png';
+import navPrayerIcon from '@/assets/mosque_navbar.png';
+import navChatIcon from '@/assets/nav-chat-icon.png';
 import { ScanLine } from 'lucide-react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -14,7 +14,7 @@ const TEXT_INACTIVE = '#9A9A9A';
 // Custom image icon components
 const HomeIconImg = ({ isActive }: { isActive: boolean }) => (
   <img
-    src={navHomeIcon.url}
+    src={navHomeIcon}
     alt="Home"
     className="shrink-0"
     style={{
@@ -28,7 +28,7 @@ const HomeIconImg = ({ isActive }: { isActive: boolean }) => (
 
 const MarketplaceIconImg = ({ isActive }: { isActive: boolean }) => (
   <img
-    src={navMarketplaceIcon.url}
+    src={navMarketplaceIcon}
     alt="Marketplace"
     className="shrink-0"
     style={{
@@ -42,7 +42,7 @@ const MarketplaceIconImg = ({ isActive }: { isActive: boolean }) => (
 
 const PrayerIconImg = ({ isActive }: { isActive: boolean }) => (
   <img
-    src={navPrayerIcon.url}
+    src={navPrayerIcon}
     alt="Prayer"
     className="shrink-0"
     style={{
@@ -75,7 +75,7 @@ export const BottomNavigation = () => {
   const { t } = useLanguage();
 
   return (
-    <nav className="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-md z-30 px-3 pb-3 font-arabic">
+    <nav className="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-[30%] max-w-[380px] z-30 pb-3 font-arabic">
       <div className="flex items-center gap-2 w-full">
         <div
           className="flex-1 min-w-0 rounded-full flex items-center justify-between h-12 px-1 overflow-hidden"
@@ -117,7 +117,7 @@ export const BottomNavigation = () => {
           aria-label="Guftagu"
         >
           <img
-            src={navChatIcon.url}
+            src={navChatIcon}
             alt="Guftagu"
             className="shrink-0"
             style={{ width: 22, height: 22, objectFit: 'contain' }}
