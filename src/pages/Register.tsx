@@ -4,7 +4,8 @@ import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
-import { User, Briefcase, Plane, ArrowLeft, Apple, Star, Chrome } from 'lucide-react';
+import { User, Briefcase, Plane, ArrowLeft, Star, Chrome } from 'lucide-react';
+import appleLogo from '@/assets/AppleLogo.png';
 import { Card } from '@/components/ui/card';
 import { LanguageSelector } from '@/components/LanguageSelector';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -195,7 +196,7 @@ export const Register = () => {
               className="w-full h-14 rounded-full text-white text-base font-medium hover:opacity-90"
               style={{ backgroundColor: '#3A1E12' }}
             >
-              <Apple className="h-5 w-5 mr-2 fill-white" />
+              <img src={appleLogo} alt="Apple" className="h-5 w-5 mr-2" />
               Continue with Apple
             </Button>
 
