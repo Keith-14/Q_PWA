@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { LanguageSelector } from '@/components/LanguageSelector';
 import { useLanguage } from '@/contexts/LanguageContext';
 import appleLogo from '@/assets/AppleLogo.png';
+import { BarakahLogo } from '@/components/BarakahLogo';
 
 export const Login = () => {
   const [email, setEmail] = useState('');
@@ -48,41 +49,12 @@ export const Login = () => {
       <div className="relative z-10 w-full px-6">
         {/* Logo and Branding */}
         <div className="text-center mb-12">
-          {/* Prayer beads icon */}
           <div className="w-24 h-24 mx-auto mb-6 flex items-center justify-center">
-            <svg width="80" height="100" viewBox="0 0 80 100" className="text-sage">
-              {/* Prayer beads circle */}
-              <g fill="currentColor">
-                {/* Top bead */}
-                <circle cx="40" cy="8" r="6" />
-                {/* Main circle of beads */}
-                <circle cx="60" cy="25" r="5" />
-                <circle cx="68" cy="45" r="5" />
-                <circle cx="60" cy="65" r="5" />
-                <circle cx="40" cy="75" r="5" />
-                <circle cx="20" cy="65" r="5" />
-                <circle cx="12" cy="45" r="5" />
-                <circle cx="20" cy="25" r="5" />
-                <circle cx="40" cy="15" r="5" />
-                <circle cx="45" cy="20" r="4" />
-                <circle cx="50" cy="30" r="4" />
-                <circle cx="50" cy="40" r="4" />
-                <circle cx="50" cy="50" r="4" />
-                <circle cx="45" cy="60" r="4" />
-                <circle cx="35" cy="60" r="4" />
-                <circle cx="30" cy="50" r="4" />
-                <circle cx="30" cy="40" r="4" />
-                <circle cx="30" cy="30" r="4" />
-                <circle cx="35" cy="20" r="4" />
-                {/* Hanging tassel bead */}
-                <circle cx="40" cy="85" r="4" />
-                <circle cx="40" cy="92" r="3" />
-              </g>
-            </svg>
+            <BarakahLogo size="lg" />
           </div>
           
-          <h1 className="text-4xl font-bold text-sage mb-2">BARAKAH</h1>
-          <p className="text-sm text-sage/80 font-medium tracking-wide">
+          <h1 className="text-4xl font-bold mb-2" style={{ color: '#A35334', fontFamily: "'Plus Jakarta Sans', sans-serif" }}>BARAKAH</h1>
+          <p className="text-sm font-medium tracking-wide" style={{ color: '#7c6a4f' }}>
             {t('login.tagline')}
           </p>
         </div>
@@ -90,8 +62,8 @@ export const Login = () => {
         {/* Login Form */}
         <div className="space-y-6">
           <div className="text-center">
-            <h2 className="text-lg font-semibold text-sage mb-2">{t('login.create_account')}</h2>
-            <p className="text-sm text-sage/70">
+            <h2 className="text-lg font-semibold mb-2" style={{ color: '#A35334' }}>{t('login.create_account')}</h2>
+            <p className="text-sm text-[#7c6a4f]">
               {t('login.enter_email')}
             </p>
           </div>
@@ -102,25 +74,25 @@ export const Login = () => {
               placeholder={t('login.email_placeholder')}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="bg-white/90 border-sage/30 rounded-xl h-12 text-center placeholder:text-sage/50"
+              className="h-12 rounded-xl bg-white border border-[#EADFC9] text-center text-[#3A1E12] placeholder:text-[#9a8a70] focus-visible:ring-0 focus-visible:ring-offset-0"
               dir="ltr"
             />
 
             <Button 
               onClick={handleLogin}
-              className="w-full bg-black hover:bg-black/90 text-white rounded-xl h-12 font-medium"
+              className="w-full bg-[#A35334] hover:bg-[#A35334]/90 text-white rounded-xl h-12 font-medium"
             >
               {t('login.continue')}
             </Button>
 
             <div className="text-center relative">
-              <div className="border-t border-sage/20 absolute inset-x-0 top-1/2" />
-              <span className="text-sm text-sage/60 bg-cream px-3 relative z-10">{t('login.or')}</span>
+              <div className="border-t border-[#D9C9A8] absolute inset-x-0 top-1/2" />
+              <span className="text-sm text-[#7c6a4f] bg-cream px-3 relative z-10">{t('login.or')}</span>
             </div>
 
             <Button 
               variant="outline" 
-              className="w-full rounded-xl h-12 bg-white/90 border-sage/30 hover:bg-white text-sage font-medium"
+              className="w-full rounded-xl h-12 bg-white border border-[#E5D8C3] hover:bg-white text-[#1a1a1a] font-medium"
             >
               <svg className="w-5 h-5 mx-3" viewBox="0 0 24 24">
                 <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -133,17 +105,17 @@ export const Login = () => {
 
             <Button 
               variant="outline" 
-              className="w-full rounded-xl h-12 bg-white/90 border-sage/30 hover:bg-white text-sage font-medium"
+              className="w-full rounded-xl h-12 bg-white border border-[#E5D8C3] hover:bg-white text-[#1a1a1a] font-medium"
             >
               <img src={appleLogo} alt="Apple" className="w-5 h-5 mx-3" />
               {t('login.apple')}
             </Button>
           </div>
 
-          <p className="text-xs text-sage/60 text-center px-4 leading-relaxed">
+          <p className="text-xs text-[#7c6a4f] text-center px-4 leading-relaxed">
             {t('login.terms')}{' '}
-            <span className="underline">{t('login.terms_of_service')}</span> {t('login.and')}{' '}
-            <span className="underline">{t('login.privacy_policy')}</span>
+            <span className="underline font-semibold text-[#3a2a18]">{t('login.terms_of_service')}</span> {t('login.and')}{' '}
+            <span className="underline font-semibold text-[#3a2a18]">{t('login.privacy_policy')}</span>
           </p>
         </div>
       </div>
