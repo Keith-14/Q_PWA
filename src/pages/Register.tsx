@@ -177,20 +177,14 @@ export const Register = () => {
 
       {/* Hero spacer with brand */}
       <div
-        className="relative h-[42vh] min-h-[300px] w-full flex flex-col items-center justify-center pt-8"
+        className="relative h-[42vh] min-h-[300px] w-full"
         style={{
           backgroundImage: `linear-gradient(180deg, rgba(255,241,221,0) 70%, #FFF5E5 100%), url(${loginBg})`,
           backgroundSize: 'cover, cover',
           backgroundPosition: 'center top, center top',
           backgroundRepeat: 'no-repeat, no-repeat',
         }}
-      >
-        <BarakahLogo size="lg" className="mb-2" />
-        <h1 className="text-4xl font-bold mb-1" style={{ color: '#A35334', fontFamily: "'Plus Jakarta Sans', sans-serif" }}>BARAKAH</h1>
-        <p className="text-sm font-medium tracking-wide" style={{ color: '#7c6a4f' }}>
-          {t('login.tagline')}
-        </p>
-      </div>
+      />
 
       {/* Bottom sheet */}
       <div className="flex-1 px-6 pb-8 pt-2 relative z-10">

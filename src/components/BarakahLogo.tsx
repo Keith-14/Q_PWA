@@ -1,4 +1,4 @@
-import barakahLogoIcon from '@/assets/barakah-logo-icon.png';
+import barakahLogo from '@/assets/barakah-logo.png';
 
 interface BarakahLogoProps {
   className?: string;
@@ -13,11 +13,11 @@ export const BarakahLogo = ({ className = '', size = 'md' }: BarakahLogoProps) =
   };
 
   return (
-    <div className={`${sizeClasses[size]} ${className} float flex items-center justify-center`}>
+    <div className={`${sizeClasses[size]} ${className} float`}>
       <img 
-        src={barakahLogoIcon} 
+        src={barakahLogo} 
         alt="Barakah Logo" 
-        className="w-full h-full object-contain drop-shadow-[0_0_15px_rgba(163,83,52,0.3)]"
+        className="w-full h-full object-contain drop-shadow-[0_0_15px_hsl(150_30%_50%/0.4)]"
       />
     </div>
   );
