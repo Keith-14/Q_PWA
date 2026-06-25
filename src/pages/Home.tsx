@@ -12,6 +12,7 @@ import qaAiAsset from '@/assets/qa-ai-new.png';
 import qaPlacesAsset from '@/assets/places-icon.png';
 import qaHajjAsset from '@/assets/hajj-icon.png';
 import barakahArcLogo from '@/assets/barakah-arc-logo.png';
+import barakah from '@/assets/Barakah.png';
 
 interface NewsItem {
   id: string;
@@ -147,27 +148,20 @@ export const Home = () => {
 
         {/* Top app bar */}
         <div className="relative z-10 flex items-center justify-between px-5 pt-2">
-          <button
-            onClick={() => setIsMenuOpen(true)}
-            className="text-[#F9FAFB] p-2 -ml-2"
-            aria-label="Menu"
-          >
-            <Menu className="h-6 w-6" strokeWidth={2} />
-          </button>
-          <h1
-            className="text-[#FFE8CA] text-[22px] tracking-wide"
-            style={{ fontFamily: 'Plus Jakarta Sans, sans-serif', fontWeight: 600 }}
-          >
-            Barakah
-          </h1>
-          <button
-            className="w-9 h-9 rounded-full flex items-center justify-center text-[#F9FAFB]"
-            style={{ background: 'rgba(255,255,255,0.15)' }}
-            aria-label="Notifications"
-          >
-            <Bell className="h-4 w-4" strokeWidth={2} />
-          </button>
-        </div>
+  <button
+    onClick={() => setIsMenuOpen(true)}
+    className="text-[#F9FAFB] p-2 -ml-2"
+    aria-label="Menu"
+  >
+    <Menu className="h-6 w-6" strokeWidth={2} />
+  </button>
+
+  <img
+    src={barakah}
+    alt="Barakah"
+    className="h-8 w-auto"
+  />
+</div>
 
         {/* Greeting + location */}
         <div className="relative z-10 px-5 pt-5 flex items-start justify-between">

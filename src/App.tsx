@@ -12,6 +12,8 @@ import { LoadingScreen } from "./pages/LoadingScreen";
 import { Register } from "./pages/Register";
 import { Onboarding } from "./pages/Onboarding";
 import { Quran } from "./pages/Quran";
+import { Hadith } from "./pages/Hadith";
+import { HadithBook } from "./pages/HadithBook";
 import { Qibla } from "./pages/Qibla";
 import { Shop } from "./pages/Shop";
 import { ShopCategories } from "./pages/ShopCategories";
@@ -72,6 +74,8 @@ const App = () => (
                   <Route path="/onboarding" element={<Onboarding />} />
                   <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
                   <Route path="/quran" element={<ProtectedRoute><Quran /></ProtectedRoute>} />
+                  <Route path="/hadith" element={<ProtectedRoute><Hadith /></ProtectedRoute>} />
+                  <Route path="/hadith/:slug" element={<ProtectedRoute><HadithBook /></ProtectedRoute>} />
                   <Route path="/qibla" element={<ProtectedRoute><Qibla /></ProtectedRoute>} />
                   <Route path="/shop" element={<ProtectedRoute><Shop /></ProtectedRoute>} />
                   <Route path="/shop/categories" element={<ProtectedRoute><ShopCategories /></ProtectedRoute>} />
