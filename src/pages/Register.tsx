@@ -231,7 +231,7 @@ export const Register = () => {
                 placeholder="Continue with Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="h-14 rounded-full bg-[#FFF5E5] border border-[#EADFC9] pl-12 pr-4 text-[15px] placeholder:text-[#9a8a70] focus-visible:ring-0 focus-visible:ring-offset-0"
+                className="h-14 rounded-full bg-[#FFF5E5] border border-[#EADFC9] pl-12 pr-4 text-[15px] text-[#3A1E12] placeholder:text-[#9a8a70] focus-visible:ring-0 focus-visible:ring-offset-0"
                 dir="ltr"
               />
             </div>
@@ -323,7 +323,7 @@ export const Register = () => {
                 placeholder={t('login.full_name')}
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
-                className="h-14 rounded-full bg-[#FFF5E5] border border-[#EADFC9] px-5 placeholder:text-[#9a8a70] focus-visible:ring-0 focus-visible:ring-offset-0"
+                className="h-14 rounded-full bg-[#FFF5E5] border border-[#EADFC9] px-5 text-[#3A1E12] placeholder:text-[#9a8a70] focus-visible:ring-0 focus-visible:ring-offset-0"
               />
             )}
             {!needsSetup && (
@@ -333,14 +333,14 @@ export const Register = () => {
                   placeholder={t('login.email_placeholder')}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="h-14 rounded-full bg-[#FFF5E5] border border-[#EADFC9] px-5 placeholder:text-[#9a8a70] focus-visible:ring-0 focus-visible:ring-offset-0"
+                  className="h-14 rounded-full bg-[#FFF5E5] border border-[#EADFC9] px-5 text-[#3A1E12] placeholder:text-[#9a8a70] focus-visible:ring-0 focus-visible:ring-offset-0"
                 />
                 <Input
                   type="password"
                   placeholder={t('login.password')}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="h-14 rounded-full bg-[#FFF5E5] border border-[#EADFC9] px-5 placeholder:text-[#9a8a70] focus-visible:ring-0 focus-visible:ring-offset-0"
+                  className="h-14 rounded-full bg-[#FFF5E5] border border-[#EADFC9] px-5 text-[#3A1E12] placeholder:text-[#9a8a70] focus-visible:ring-0 focus-visible:ring-offset-0"
                 />
               </>
             )}
